@@ -1,3 +1,3 @@
 #include <string.h>
 
-int compute(const char*, const char*);
+size_t compute(const char*, const char*);

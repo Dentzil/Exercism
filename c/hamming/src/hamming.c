@@ -1,21 +1,16 @@
 #include "hamming.h"
 
-int compute(const char* dna1, const char* dna2)
+size_t compute(const char* dna1, const char* dna2)
 {
-    if (dna1 == NULL || dna2 == NULL)
+    size_t length;
+    
+    if (dna1 == NULL || dna2 == NULL || (length = strlen(dna1)) != strlen(dna2))
     {
         return -1;
     }
 
-    int length1 = strlen(dna1);
-    int length2 = strlen(dna2);
-    if (length1 != length2)
-    {
-        return -1;
-    }
-
-    int difference = 0;
-    for (int i = 0; i < length1; i++)
+    size_t difference = 0;
+    for (size_t i = 0; i < length; i++)
     {
         if (*(dna1 + i) != *(dna2 + i))
         {
