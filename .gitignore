@@ -1,3 +1,5 @@
 bin
 obj
 .solution.json
+*.out
+*.out.dSYM
