@@ -4,6 +4,6 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-bool is_pangram(const char *sentence);
+bool is_pangram(const char *const sentence);
 
 #endif

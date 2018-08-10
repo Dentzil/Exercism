@@ -1,31 +1,24 @@
 #include <stdio.h>
 #include "pangram.h"
 
-bool is_pangram(const char *sentence)
+bool is_pangram(const char *const sentence)
 {
     if (sentence == NULL)
     {
         return false;
     }
 
-    const size_t alphabet_length = 26;
-    int repetitions[alphabet_length];
+    int repetitions[26] = { 0 };
 
-    for (size_t i = 0; i < alphabet_length; i++)
+    for (size_t i = 0; sentence[i] != '\0'; i++)
     {
-        repetitions[i] = 0;
-    }
-
-    for (; *sentence != '\0'; sentence++)
-    {
-        if (isalpha(*sentence))
+        if (isalpha(sentence[i]))
         {
-            int index = tolower(*sentence) - 'a';
-            repetitions[index]++;
+            repetitions[tolower(sentence[i]) - 'a']++;
         }
     }
 
-    for (size_t i = 0; i < alphabet_length; i++)
+    for (size_t i = 0; i < 26; i++)
     {
         if (repetitions[i] == 0)
         {
