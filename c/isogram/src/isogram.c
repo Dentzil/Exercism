@@ -1,24 +1,24 @@
 #include "isogram.h"
 
-bool is_isogram(const char* str)
+bool is_isogram(const char *const str)
 {
-    int char_repetitions[27] = { 0 };
+    int char_repetitions[26] = { 0 };
     
-    for (; *str != '\0'; str++)
+    for (size_t i = 0; str[i] != '\0'; i++)
     {
-        if (!isalpha(*str))
+        if (!isalpha(str[i]))
         {
             continue;
         }
         
         int index;
-        if (islower(*str))
+        if (islower(str[i]))
         {
-            index = *str - 'a';
+            index = str[i] - 'a';
         }
         else
         {
-            index = *str - 'A';
+            index = str[i] - 'A';
         }
         
         if (++char_repetitions[index] > 1)

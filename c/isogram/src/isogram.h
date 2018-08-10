@@ -4,6 +4,6 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-bool is_isogram(const char phrase[]);
+bool is_isogram(const char *const phrase);
 
 #endif
