@@ -9,19 +9,18 @@ class DnaTranscriber {
     }
 
     toRna(dna) {
-        let rna = [];
+        return dna
+                .split('')
+                .map(e => 
+                {
+                    if (!this.dnaRnaMap[e])
+                    {
+                        throw new Error("Invalid input");
+                    }
 
-        for (let i = 0; i < dna.length; i++) {
-            let nucleotide = dna[i];
-
-            if (this.dnaRnaMap[nucleotide] === undefined) {
-                throw new Error("Invalid input");
-            }
-
-            rna.push(this.dnaRnaMap[nucleotide]);
-        }
-
-        return rna.join('');
+                    return this.dnaRnaMap[e];
+                })
+                .join('');
     }
 }
 
