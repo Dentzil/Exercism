@@ -1,84 +1,64 @@
-﻿using NUnit.Framework;
+using Xunit;
 
-[TestFixture]
 public class PangramTest
 {
-    [Test]
-    public void Empty_sentence()
+    [Fact]
+    public void Sentence_empty()
     {
-        var input = "";
-        Assert.That(Pangram.IsPangram(input), Is.EqualTo(false));
+        Assert.False(Pangram.IsPangram(""));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
+    [Fact]
+    public void Recognizes_a_perfect_lower_case_pangram()
+    {
+        Assert.True(Pangram.IsPangram("abcdefghijklmnopqrstuvwxyz"));
+    }
+
+    [Fact]
     public void Pangram_with_only_lower_case()
     {
-        var input = "the quick brown fox jumps over the lazy dog";
-        Assert.That(Pangram.IsPangram(input), Is.EqualTo(true));
+        Assert.True(Pangram.IsPangram("the quick brown fox jumps over the lazy dog"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
+    [Fact]
     public void Missing_character_x()
     {
-        var input = "a quick movement of the enemy will jeopardize five gunboats";
-        Assert.That(Pangram.IsPangram(input), Is.EqualTo(false));
+        Assert.False(Pangram.IsPangram("a quick movement of the enemy will jeopardize five gunboats"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Another_missing_character_x()
+    [Fact]
+    public void Another_missing_character_e_g_h()
     {
-        var input = "the quick brown fish jumps over the lazy dog";
-        Assert.That(Pangram.IsPangram(input), Is.EqualTo(false));
+        Assert.False(Pangram.IsPangram("five boxing wizards jump quickly at it"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
+    [Fact]
     public void Pangram_with_underscores()
     {
-        var input = "the_quick_brown_fox_jumps_over_the_lazy_dog";
-        Assert.That(Pangram.IsPangram(input), Is.EqualTo(true));
+        Assert.True(Pangram.IsPangram("the_quick_brown_fox_jumps_over_the_lazy_dog"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
+    [Fact]
     public void Pangram_with_numbers()
     {
-        var input = "the 1 quick brown fox jumps over the 2 lazy dogs";
-        Assert.That(Pangram.IsPangram(input), Is.EqualTo(true));
+        Assert.True(Pangram.IsPangram("the 1 quick brown fox jumps over the 2 lazy dogs"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
+    [Fact]
     public void Missing_letters_replaced_by_numbers()
     {
-        var input = "7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog";
-        Assert.That(Pangram.IsPangram(input), Is.EqualTo(false));
+        Assert.False(Pangram.IsPangram("7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
+    [Fact]
     public void Pangram_with_mixed_case_and_punctuation()
     {
-        var input = "\"Five quacking Zephyrs jolt my wax bed.\"";
-        Assert.That(Pangram.IsPangram(input), Is.EqualTo(true));
+        Assert.True(Pangram.IsPangram("\"Five quacking Zephyrs jolt my wax bed.\""));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Pangram_with_non_ascii_characters()
+    [Fact]
+    public void Upper_and_lower_case_versions_of_the_same_character_should_not_be_counted_separately()
     {
-        var input = "Victor jagt zwölf Boxkämpfer quer über den großen Sylter Deich.";
-        Assert.That(Pangram.IsPangram(input), Is.EqualTo(true));
-    }
-
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Pangram_in_alphabet_other_than_ascii()
-    {
-        var input = "Широкая электрификация южных губерний даст мощный толчок подъёму сельского хозяйства.";
-        Assert.That(Pangram.IsPangram(input), Is.EqualTo(false));
+        Assert.False(Pangram.IsPangram("the quick brown fox jumps over with lazy FX"));
     }
 }

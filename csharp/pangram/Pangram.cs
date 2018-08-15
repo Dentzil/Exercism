@@ -1,16 +1,12 @@
-﻿namespace Exercism_Pangram
+using System.Collections.Generic;
+
+public class Pangram
 {
-    using System.Linq;
+    private const string Alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-    public class Pangram
+    public static bool IsPangram(string input)
     {
-        public static bool IsPangram(string input)
-        {
-            const string Alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-            string text = input.ToLower();
-
-            return Alphabet.All(e => text.Contains(e));
-        }
+        return new HashSet<char>(input.ToLower()).IsSupersetOf(Alphabet);
     }
 }
