@@ -1,39 +1,33 @@
-﻿namespace Exercism_space_age
+public class SpaceAge
 {
-    public class SpaceAge
+    private const double OrbitalPeriodOnEarthInSeconds = 31557600.0;
+    private double _onEarth;
+    private double _onJupiter;
+    private double _onMars;
+    private double _onMercury;
+    private double _onNeptune;
+    private double _onSaturn;
+    private double _onUranus;
+    private double _onVenus;   
+
+    public SpaceAge(long ageInSeconds)
     {
-        private const double OrbitalPeriodOnEarthInSeconds = 31557600.0;
-
-        public long Seconds { get; }
-
-        public double OnEarth { get; }
-
-        public double OnMercury { get; }
-
-        public double OnVenus { get; }
-
-        public double OnMars { get; }
-
-        public double OnJupiter { get; }
-
-        public double OnSaturn { get; }
-
-        public double OnUranus { get; }
-
-        public double OnNeptune { get; }
-
-        public SpaceAge(long ageInSeconds)
-        {
-            Seconds = ageInSeconds;
-
-            OnEarth = Seconds / OrbitalPeriodOnEarthInSeconds;
-            OnMercury = Seconds / (OrbitalPeriodOnEarthInSeconds * 0.2408467);
-            OnVenus = Seconds / (OrbitalPeriodOnEarthInSeconds * 0.61519726);
-            OnMars = Seconds / (OrbitalPeriodOnEarthInSeconds * 1.8808158);
-            OnJupiter = Seconds / (OrbitalPeriodOnEarthInSeconds * 11.862615);
-            OnSaturn = Seconds / (OrbitalPeriodOnEarthInSeconds * 29.447498);
-            OnUranus = Seconds / (OrbitalPeriodOnEarthInSeconds * 84.016846);
-            OnNeptune = Seconds / (OrbitalPeriodOnEarthInSeconds * 164.79132);
-        }
+        _onEarth = ageInSeconds / OrbitalPeriodOnEarthInSeconds;
+        _onJupiter = ageInSeconds / (OrbitalPeriodOnEarthInSeconds * 11.862615);
+        _onMars = ageInSeconds / (OrbitalPeriodOnEarthInSeconds * 1.8808158);
+        _onMercury = ageInSeconds / (OrbitalPeriodOnEarthInSeconds * 0.2408467);
+        _onNeptune = ageInSeconds / (OrbitalPeriodOnEarthInSeconds * 164.79132);
+        _onSaturn = ageInSeconds / (OrbitalPeriodOnEarthInSeconds * 29.447498);
+        _onUranus = ageInSeconds / (OrbitalPeriodOnEarthInSeconds * 84.016846);
+        _onVenus = ageInSeconds / (OrbitalPeriodOnEarthInSeconds * 0.61519726);
     }
+
+    public double OnEarth() => _onEarth;
+    public double OnJupiter() => _onJupiter;
+    public double OnMars() => _onMars;
+    public double OnMercury() => _onMercury;
+    public double OnNeptune() => _onNeptune;
+    public double OnSaturn() => _onSaturn;
+    public double OnUranus() => _onUranus;
+    public double OnVenus() => _onVenus;
 }
