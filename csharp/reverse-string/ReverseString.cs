@@ -1,12 +1,9 @@
-﻿namespace Exercism_reverse_string
-{
-    using System.Linq;
+using System.Linq;
 
-    public static class ReverseString
+public static class ReverseString
+{
+    public static string Reverse(string input)
     {
-        public static string Reverse(string input)
-        {
-            return string.Concat(input.Reverse());
-        }
+        return string.Concat(input.Reverse());
     }
 }
