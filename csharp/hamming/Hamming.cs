@@ -1,12 +1,15 @@
-﻿namespace Exercism_hamming
-{
-    using System.Linq;
+using System;
+using System.Linq;
 
-    public class Hamming
+public class Hamming
+{
+    public static int Distance(string dna1, string dna2)
     {
-        public static int Compute(string dna1, string dna2)
+        if (dna1.Length != dna2.Length)
         {
-            return dna1.Zip(dna2, (a, b) => a == b).Count(e => e == false);
+            throw new ArgumentException();
         }
+
+        return dna1.Zip(dna2, (a, b) => a == b).Count(e => e == false);
     }
 }

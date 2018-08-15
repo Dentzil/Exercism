@@ -1,46 +1,95 @@
-using NUnit.Framework;
+using System;
+using Xunit;
 
-[TestFixture]
 public class HammingTest
 {
-    [Test]
-    public void No_difference_between_empty_strands()
+    [Fact]
+    public void Empty_strands()
     {
-        Assert.That(Hamming.Compute("",""), Is.EqualTo(0));
+        Assert.Equal(0, Hamming.Distance("", ""));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void No_difference_between_identical_strands()
+    [Fact]
+    public void Identical_strands()
     {
-        Assert.That(Hamming.Compute("GGACTGA","GGACTGA"), Is.EqualTo(0));
+        Assert.Equal(0, Hamming.Distance("A", "A"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Complete_hamming_distance_in_small_strand()
+    [Fact]
+    public void Long_identical_strands()
     {
-        Assert.That(Hamming.Compute("ACT","GGA"), Is.EqualTo(3));
+        Assert.Equal(0, Hamming.Distance("GGACTGA", "GGACTGA"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Hamming_distance_is_off_by_one_strand()
+    [Fact]
+    public void Complete_distance_in_single_nucleotide_strands()
     {
-        Assert.That(Hamming.Compute("GGACGGATTCTG","AGGACGGATTCT"), Is.EqualTo(9));
+        Assert.Equal(1, Hamming.Distance("A", "G"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Smalling_hamming_distance_in_middle_somewhere()
+    [Fact]
+    public void Complete_distance_in_small_strands()
     {
-        Assert.That(Hamming.Compute("GGACG","GGTCG"), Is.EqualTo(1));
+        Assert.Equal(2, Hamming.Distance("AG", "CT"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Larger_distance()
+    [Fact]
+    public void Small_distance_in_small_strands()
     {
-        Assert.That(Hamming.Compute("ACCAGGG","ACTATGG"), Is.EqualTo(2));
+        Assert.Equal(1, Hamming.Distance("AT", "CT"));
+    }
+
+    [Fact]
+    public void Small_distance()
+    {
+        Assert.Equal(1, Hamming.Distance("GGACG", "GGTCG"));
+    }
+
+    [Fact]
+    public void Small_distance_in_long_strands()
+    {
+        Assert.Equal(2, Hamming.Distance("ACCAGGG", "ACTATGG"));
+    }
+
+    [Fact]
+    public void Non_unique_character_in_first_strand()
+    {
+        Assert.Equal(1, Hamming.Distance("AAG", "AAA"));
+    }
+
+    [Fact]
+    public void Non_unique_character_in_second_strand()
+    {
+        Assert.Equal(1, Hamming.Distance("AAA", "AAG"));
+    }
+
+    [Fact]
+    public void Same_nucleotides_in_different_positions()
+    {
+        Assert.Equal(2, Hamming.Distance("TAG", "GAT"));
+    }
+
+    [Fact]
+    public void Large_distance()
+    {
+        Assert.Equal(4, Hamming.Distance("GATACA", "GCATAA"));
+    }
+
+    [Fact]
+    public void Large_distance_in_off_by_one_strand()
+    {
+        Assert.Equal(9, Hamming.Distance("GGACGGATTCTG", "AGGACGGATTCT"));
+    }
+
+    [Fact]
+    public void Disallow_first_strand_longer()
+    {
+        Assert.Throws<ArgumentException>(() => Hamming.Distance("AATG", "AAA"));
+    }
+
+    [Fact]
+    public void Disallow_second_strand_longer()
+    {
+        Assert.Throws<ArgumentException>(() => Hamming.Distance("ATA", "AGTG"));
     }
 }
