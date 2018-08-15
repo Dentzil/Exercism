@@ -6,7 +6,6 @@ public class Pangram
 
     public static bool IsPangram(string input)
     {
-
         return new HashSet<char>(input.ToLower()).IsSupersetOf(Alphabet);
     }
 }
