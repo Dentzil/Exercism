@@ -1,14 +1,11 @@
-﻿namespace Exercism_gigasecond
+using System;
+
+public class Gigasecond
 {
-    using System;
+    public static int Value { get; } = 1000000000;
 
-    public class Gigasecond
+    public static DateTime Add(DateTime date)
     {
-        public static int Value { get; } = 1000000000;
-
-        public static DateTime Date(DateTime date)
-        {
-            return date.AddSeconds(Value);
-        }
+        return date.AddSeconds(Value);
     }
 }

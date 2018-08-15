@@ -1,29 +1,35 @@
 using System;
-using NUnit.Framework;
+using Xunit;
 
-[TestFixture]
 public class GigasecondTest
 {
-    [Test]
-    public void First_date()
+    [Fact]
+    public void Date_only_specification_of_time()
     {
-        var date = Gigasecond.Date(new DateTime(2011, 4, 25, 0, 0, 0, DateTimeKind.Utc));
-        Assert.That(date, Is.EqualTo(new DateTime(2043, 1, 1, 1, 46, 40, DateTimeKind.Utc)));
+        Assert.Equal(new DateTime(2043, 1, 1, 1, 46, 40), Gigasecond.Add(new DateTime(2011, 4, 25)));
     }
 
-    [Test]
-    [Ignore("Remove to run test")]
-    public void Another_date()
+    [Fact]
+    public void Second_test_for_date_only_specification_of_time()
     {
-        var date = Gigasecond.Date(new DateTime(1977, 6, 13, 0, 0, 0, DateTimeKind.Utc));
-        Assert.That(date, Is.EqualTo(new DateTime(2009, 2, 19, 1, 46, 40, DateTimeKind.Utc)));
+        Assert.Equal(new DateTime(2009, 2, 19, 1, 46, 40), Gigasecond.Add(new DateTime(1977, 6, 13)));
     }
 
-    [Test]
-    [Ignore("Remove to run test")]
-    public void Yet_another_date()
+    [Fact]
+    public void Third_test_for_date_only_specification_of_time()
     {
-        var date = Gigasecond.Date(new DateTime(1959, 7, 19, 0, 0, 0, DateTimeKind.Utc));
-        Assert.That(date, Is.EqualTo(new DateTime(1991, 3, 27, 1, 46, 40, DateTimeKind.Utc)));
+        Assert.Equal(new DateTime(1991, 3, 27, 1, 46, 40), Gigasecond.Add(new DateTime(1959, 7, 19)));
+    }
+
+    [Fact]
+    public void Full_time_specified()
+    {
+        Assert.Equal(new DateTime(2046, 10, 2, 23, 46, 40), Gigasecond.Add(new DateTime(2015, 1, 24, 22, 0, 0)));
+    }
+
+    [Fact]
+    public void Full_time_with_day_roll_over()
+    {
+        Assert.Equal(new DateTime(2046, 10, 3, 1, 46, 39), Gigasecond.Add(new DateTime(2015, 1, 24, 23, 59, 59)));
     }
 }
