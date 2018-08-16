@@ -1,60 +1,71 @@
-﻿using NUnit.Framework;
+using Xunit;
+using System;
 
-[TestFixture]
 public class GrainsTest
 {
-    [Test]
-    public void Test_square_1()
+    [Fact]
+    public void Returns_the_total_number_of_grains_on_the_board()
     {
-        Assert.That(Grains.Square(1), Is.EqualTo(1));
+        Assert.Equal(18446744073709551615UL, Grains.Total());
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Test_square_2()
+    [Fact]
+    public void Number_1()
     {
-        Assert.That(Grains.Square(2), Is.EqualTo(2));
+        Assert.Equal(1UL, Grains.Square(1));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Test_square_3()
+    [Fact]
+    public void Number_2()
     {
-        Assert.That(Grains.Square(3), Is.EqualTo(4));
+        Assert.Equal(2UL, Grains.Square(2));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Test_square_4()
+    [Fact]
+    public void Number_3()
     {
-        Assert.That(Grains.Square(4), Is.EqualTo(8));
+        Assert.Equal(4UL, Grains.Square(3));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Test_square_16()
+    [Fact]
+    public void Number_4()
     {
-        Assert.That(Grains.Square(16), Is.EqualTo(32768));
+        Assert.Equal(8UL, Grains.Square(4));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Test_square_32()
+    [Fact]
+    public void Number_16()
     {
-        Assert.That(Grains.Square(32), Is.EqualTo(2147483648));
+        Assert.Equal(32768UL, Grains.Square(16));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Test_square_64()
+    [Fact]
+    public void Number_32()
     {
-        Assert.That(Grains.Square(64), Is.EqualTo(9223372036854775808));
+        Assert.Equal(2147483648UL, Grains.Square(32));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Test_total_grains()
+    [Fact]
+    public void Number_64()
     {
-        Assert.That(Grains.Total(), Is.EqualTo(18446744073709551615));
+        Assert.Equal(9223372036854775808UL, Grains.Square(64));
+    }
+
+    [Fact]
+    public void Square_0_raises_an_exception()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => Grains.Square(0));
+    }
+
+    [Fact]
+    public void Negative_square_raises_an_exception()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => Grains.Square(-1));
+    }
+
+    [Fact]
+    public void Square_greater_than_64_raises_an_exception()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => Grains.Square(65));
     }
 }
