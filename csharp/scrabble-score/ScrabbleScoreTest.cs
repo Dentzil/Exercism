@@ -1,67 +1,70 @@
-using NUnit.Framework;
+using Xunit;
 
-[TestFixture]
 public class ScrabbleScoreTest
 {
-    [Test]
-    public void Empty_word_scores_zero()
+    [Fact]
+    public void Lowercase_letter()
     {
-        Assert.That(Scrabble.Score(""), Is.EqualTo(0));
+        Assert.Equal(1, ScrabbleScore.Score("a"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Whitespace_scores_zero()
+    [Fact]
+    public void Uppercase_letter()
     {
-        Assert.That(Scrabble.Score(" \t\n"), Is.EqualTo(0));
+        Assert.Equal(1, ScrabbleScore.Score("A"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Null_scores_zero()
+    [Fact]
+    public void Valuable_letter()
     {
-        Assert.That(Scrabble.Score(null), Is.EqualTo(0));
+        Assert.Equal(4, ScrabbleScore.Score("f"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Scores_very_short_word()
+    [Fact]
+    public void Short_word()
     {
-        Assert.That(Scrabble.Score("a"), Is.EqualTo(1));
+        Assert.Equal(2, ScrabbleScore.Score("at"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Scores_other_very_short_word()
+    [Fact]
+    public void Short_valuable_word()
     {
-        Assert.That(Scrabble.Score("f"), Is.EqualTo(4));
+        Assert.Equal(12, ScrabbleScore.Score("zoo"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Simple_word_scores_the_number_of_letters()
+    [Fact]
+    public void Medium_word()
     {
-        Assert.That(Scrabble.Score("street"), Is.EqualTo(6));
+        Assert.Equal(6, ScrabbleScore.Score("street"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Complicated_word_scores_more()
+    [Fact]
+    public void Medium_valuable_word()
     {
-        Assert.That(Scrabble.Score("quirky"), Is.EqualTo(22));
+        Assert.Equal(22, ScrabbleScore.Score("quirky"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Scores_are_case_insensitive()
+    [Fact]
+    public void Long_mixed_case_word()
     {
-        Assert.That(Scrabble.Score("OXYPHENBUTAZONE"), Is.EqualTo(41));
+        Assert.Equal(41, ScrabbleScore.Score("OxyphenButazone"));
     }
-    
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Entire_alphabet()
+
+    [Fact]
+    public void English_like_word()
     {
-        Assert.That(Scrabble.Score("abcdefghijklmnopqrstuvwxyz"), Is.EqualTo(87));
+        Assert.Equal(8, ScrabbleScore.Score("pinata"));
+    }
+
+    [Fact]
+    public void Empty_input()
+    {
+        Assert.Equal(0, ScrabbleScore.Score(""));
+    }
+
+    [Fact]
+    public void Entire_alphabet_available()
+    {
+        Assert.Equal(87, ScrabbleScore.Score("abcdefghijklmnopqrstuvwxyz"));
     }
 }
