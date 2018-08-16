@@ -1,41 +1,32 @@
-﻿namespace Exercism_armstrong_number
+using static System.Math;
+
+using System.Collections.Generic;
+using System.Linq;
+
+public static class ArmstrongNumbers
 {
-    using static System.Math;
-
-    using System.Collections.Generic;
-    using System.Linq;
-
-    public static class ArmstrongNumbers
+    public static bool IsArmstrongNumber(int number)
     {
-        public static bool IsArmstrongNumber(int number)
-        {
-            var digits = number.ToDigits().ToArray();
-            int numberOfDigits = digits.Length;
+        var digits = number.ToDigits().ToArray();
+        int sumOfPowers = digits.Sum(e => (int)Pow(e, digits.Length));
 
-            int sumOfPowers = 0;
-            foreach (var d in digits)
-            {
-                sumOfPowers += (int)Pow(d, numberOfDigits);
-            }
-
-            return sumOfPowers == number;
-        }
+        return sumOfPowers == number;
     }
+}
 
-    public static class IntegerExtentions
+public static class IntegerExtentions
+{
+    public static IEnumerable<int> ToDigits(this int number)
     {
-        public static IEnumerable<int> ToDigits(this int number)
+        if (number == 0)
         {
-            if (number == 0)
-            {
-                yield return 0;
-            }
+            yield return 0;
+        }
 
-            while (number != 0)
-            {
-                yield return number % 10;
-                number /= 10;
-            }
+        while (number != 0)
+        {
+            yield return number % 10;
+            number /= 10;
         }
     }
 }
