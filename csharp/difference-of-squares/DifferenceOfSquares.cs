@@ -1,25 +1,29 @@
-﻿namespace Exercism_difference_of_squares
+using System;
+
+public class DifferenceOfSquares
 {
-    using System;
-
-    public class Squares
+    public static long CalculateSquareOfSum(int n)
     {
-        public long SumOfSquares { get; }
-
-        public long SquareOfSum { get; }
-
-        public long DifferenceOfSquares { get; }
-
-        public Squares(int n)
+        if (n < 0)
         {
-            if (n < 0)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-
-            SumOfSquares = (long)n * (n + 1) * (2 * n + 1) / 6;
-            SquareOfSum = (long)Math.Pow(n * (n + 1) / 2, 2);
-            DifferenceOfSquares = SquareOfSum - SumOfSquares;
+            throw new ArgumentOutOfRangeException();
         }
+
+        return (long)Math.Pow(n * (n + 1) / 2, 2);
+    }
+
+    public static long CalculateSumOfSquares(int n)
+    {
+        if (n < 0)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+
+        return (long)n * (n + 1) * (2 * n + 1) / 6;
+    }
+
+    public static long CalculateDifferenceOfSquares(int n)
+    {
+        return CalculateSquareOfSum(n) - CalculateSumOfSquares(n);
     }
 }

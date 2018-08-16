@@ -1,76 +1,58 @@
-using System;
-using NUnit.Framework;
+using Xunit;
 
-namespace Tests
+public class DifferenceOfSquaresTest
 {
-    [TestFixture]
-    public class DifferenceOfSquaresTests
+    [Fact]
+    public void Square_of_sum_1()
     {
-        [Test]
-        public void Test_square_of_sums_to_5()
-        {
-            Assert.That(new Squares(5).SquareOfSum, Is.EqualTo(225));
-        }
-
-        [Test]
-        public void Test_sum_of_squares_to_5()
-        {
-            Assert.That(new Squares(5).SumOfSquares, Is.EqualTo(55));
-        }
-
-        [Test]
-        public void Test_difference_of_sums_to_5()
-        {
-            Assert.That(new Squares(5).DifferenceOfSquares, Is.EqualTo(170));
-        }
-
-        [Test]
-        public void Test_square_of_sums_to_10()
-        {
-            Assert.That(new Squares(10).SquareOfSum, Is.EqualTo(3025));
-        }
-
-        [Test]
-        public void Test_sum_of_squares_to_10()
-        {
-            Assert.That(new Squares(10).SumOfSquares, Is.EqualTo(385));
-        }
-
-        [Test]
-        public void Test_difference_of_sums_to_10()
-        {
-            Assert.That(new Squares(10).DifferenceOfSquares, Is.EqualTo(2640));
-        }
-
-        [Test]
-        public void Test_square_of_sums_to_100()
-        {
-            Assert.That(new Squares(100).SquareOfSum, Is.EqualTo(25502500));
-        }
-
-        [Test]
-        public void Test_sum_of_squares_to_100()
-        {
-            Assert.That(new Squares(100).SumOfSquares, Is.EqualTo(338350));
-        }
-
-        [Test]
-        public void Test_difference_of_sums_to_100()
-        {
-            Assert.That(new Squares(100).DifferenceOfSquares, Is.EqualTo(25164150));
-        }
-
-        [Test]
-        public void Test_difference_of_sums_0()
-        {
-            Assert.That(new Squares(0).DifferenceOfSquares, Is.EqualTo(0));
-        }
-
-        [Test]
-        public void Test_negative_numbers_throw_argument_out_of_range_exception()
-        {
-            Assert.That(() => new Squares(-5), Throws.TypeOf<ArgumentOutOfRangeException>());
-        }
+        Assert.Equal(1, DifferenceOfSquares.CalculateSquareOfSum(1));
     }
 
+    [Fact]
+    public void Square_of_sum_5()
+    {
+        Assert.Equal(225, DifferenceOfSquares.CalculateSquareOfSum(5));
+    }
+
+    [Fact]
+    public void Square_of_sum_100()
+    {
+        Assert.Equal(25502500, DifferenceOfSquares.CalculateSquareOfSum(100));
+    }
+
+    [Fact]
+    public void Sum_of_squares_1()
+    {
+        Assert.Equal(1, DifferenceOfSquares.CalculateSumOfSquares(1));
+    }
+
+    [Fact]
+    public void Sum_of_squares_5()
+    {
+        Assert.Equal(55, DifferenceOfSquares.CalculateSumOfSquares(5));
+    }
+
+    [Fact]
+    public void Sum_of_squares_100()
+    {
+        Assert.Equal(338350, DifferenceOfSquares.CalculateSumOfSquares(100));
+    }
+
+    [Fact]
+    public void Difference_of_squares_1()
+    {
+        Assert.Equal(0, DifferenceOfSquares.CalculateDifferenceOfSquares(1));
+    }
+
+    [Fact]
+    public void Difference_of_squares_5()
+    {
+        Assert.Equal(170, DifferenceOfSquares.CalculateDifferenceOfSquares(5));
+    }
+
+    [Fact]
+    public void Difference_of_squares_100()
+    {
+        Assert.Equal(25164150, DifferenceOfSquares.CalculateDifferenceOfSquares(100));
+    }
 }
