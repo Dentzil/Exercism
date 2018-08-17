@@ -1,30 +1,32 @@
-﻿namespace Exercism_sieve
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Sieve
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    public class Sieve
+    public static int[] Primes(int n)
     {
-        public static int[] Primes(int n)
+        if (n <= 1)
         {
-            bool[] indexes = Enumerable.Range(0, n + 1).Select(e => true).ToArray();
+            throw new ArgumentOutOfRangeException();
+        }
 
-            List<int> primes = new List<int>();
+        bool[] indexes = Enumerable.Range(0, n + 1).Select(e => true).ToArray();
+        List<int> primes = new List<int>();
 
-            for (int i = 2; i <= n; i++)
+        for (int i = 2; i <= n; i++)
+        {
+            if (indexes[i])
             {
-                if (indexes[i])
-                {
-                    primes.Add(i);
+                primes.Add(i);
 
-                    for (int j = i * i; j <= n; j += i)
-                    {
-                        indexes[j] = false;
-                    }
+                for (int j = i * i; j <= n; j += i)
+                {
+                    indexes[j] = false;
                 }
             }
-
-            return primes.ToArray();
         }
+
+        return primes.ToArray();
     }
 }
