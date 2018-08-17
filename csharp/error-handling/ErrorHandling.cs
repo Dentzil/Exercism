@@ -1,31 +1,28 @@
-﻿namespace Exercism_error_handling
+using System;
+
+public class ErrorHandling
 {
-    using System;
-
-    public class ErrorHandling
+    public static void DisposableResourcesAreDisposedWhenExceptionIsThrown(IDisposable obj)
     {
-        public static void DisposableResourcesAreDisposedWhenExceptionIsThrown(IDisposable obj)
-        {
-            obj.Dispose();
+        obj.Dispose();
 
-            throw new Exception();
-        }
+        throw new Exception();
+    }
 
-        public static int? HandleErrorByReturningNullableType(string input)
-        {
-            int result;
+    public static int? HandleErrorByReturningNullableType(string input)
+    {
+        int result;
 
-            return int.TryParse(input, out result) ? (int?)result : null;
-        }
+        return int.TryParse(input, out result) ? (int?)result : null;
+    }
 
-        public static void HandleErrorByThrowingException()
-        {
-            throw new Exception();
-        }
+    public static void HandleErrorByThrowingException()
+    {
+        throw new Exception();
+    }
 
-        public static bool HandleErrorWithOutParam(string input, out int result)
-        {
-            return int.TryParse(input, out result);
-        }
+    public static bool HandleErrorWithOutParam(string input, out int result)
+    {
+        return int.TryParse(input, out result);
     }
 }
