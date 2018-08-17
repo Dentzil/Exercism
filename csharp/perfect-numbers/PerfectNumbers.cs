@@ -1,8 +1,8 @@
-﻿namespace Exercism_perfect_numbers
-{
     using static System.Math;
 
-    public enum NumberType
+    using System;
+
+    public enum Classification
     {
         Abundant,
         Deficient,
@@ -11,22 +11,25 @@
 
     public class PerfectNumbers
     {
-        public static NumberType Classify(int number)
+        public static Classification Classify(int number)
         {
-            int sumOfFactors = CalculateSumOfFactors(number);
-
-            if (sumOfFactors == number)
+            if (number <= 0)
             {
-                return NumberType.Perfect;
+                throw new ArgumentOutOfRangeException();
             }
 
-            return sumOfFactors > number ? NumberType.Abundant : NumberType.Deficient;
+            int sumOfFactors = CalculateSumOfFactors(number);
+            if (sumOfFactors == number && sumOfFactors != 1)
+            {
+                return Classification.Perfect;
+            }
+
+            return sumOfFactors > number ? Classification.Abundant : Classification.Deficient;
         }
 
         private static int CalculateSumOfFactors(int number)
         {
             int limit = (int)Sqrt(number);
-
             int sum = 1;
 
             for (int i = 2; i <= limit; i++)
@@ -45,4 +48,3 @@
             return sum;
         }
     }
-}
