@@ -1,32 +1,29 @@
-﻿namespace Exercism_isogram
+using System.Collections.Generic;
+using System.Linq;
+
+public static class Isogram
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    public static class Isogram
+    public static bool IsIsogram(string word)
     {
-        public static bool IsIsogram(string word)
+        Dictionary<char, int> lettersRepetition = new Dictionary<char, int>();
+
+        foreach (var c in word)
         {
-            Dictionary<char, int> lettersRepetition = new Dictionary<char, int>();
-
-            string lowerCaseWord = word.ToLower();
-
-            foreach (var c in lowerCaseWord)
+            if (char.IsLetter(c))
             {
-                if (char.IsLetter(c))
+                var letter = char.ToLower(c);
+
+                if (lettersRepetition.ContainsKey(letter))
                 {
-                    if (lettersRepetition.ContainsKey(c))
-                    {
-                        lettersRepetition[c]++;
-                    }
-                    else
-                    {
-                        lettersRepetition[c] = 1;
-                    }
+                    lettersRepetition[letter]++;
+                }
+                else
+                {
+                    lettersRepetition[letter] = 1;
                 }
             }
-
-            return lettersRepetition.GroupBy(e => e.Value).Count() == 1;
         }
+
+        return word.Length == 0 || lettersRepetition.GroupBy(e => e.Value).Count() == 1;
     }
 }

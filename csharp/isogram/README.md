@@ -2,26 +2,29 @@
 
 Determine if a word or phrase is an isogram.
 
-An isogram (also known as a "nonpattern word") is a word or phrase without a repeating letter.
+An isogram (also known as a "nonpattern word") is a word or phrase without a repeating letter, however spaces and hyphens are allowed to appear multiple times.
 
 Examples of isograms:
 
 - lumberjacks
 - background
 - downstream
+- six-year-old
 
 The word *isograms*, however, is not an isogram, because the s repeats.
 
-### Submitting Exercises
+## Running the tests
 
-Note that, when trying to submit an exercise, make sure you're exercise file you're submitting is in the `exercism/csharp/<exerciseName>` directory.
+To run the tests, run the command `dotnet test` from within the exercise directory.
 
-For example, if you're submitting `bob.cs` for the Bob exercise, the submit command would be something like `exercism submit <path_to_exercism_dir>/csharp/bob/bob.cs`.
+## Further information
+
+For more detailed information about the C# track, including how to get help if
+you're having trouble, please visit the exercism.io [C# language page](http://exercism.io/languages/csharp/resources).
 
 ## Source
 
 Wikipedia [https://en.wikipedia.org/wiki/Isogram](https://en.wikipedia.org/wiki/Isogram)
 
-## Submitting Incomplete Problems
+## Submitting Incomplete Solutions
 It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
