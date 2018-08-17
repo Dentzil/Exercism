@@ -1,34 +1,24 @@
-﻿namespace Exercism_proverb
+using System.Collections.Generic;
+using System.Linq;
+
+public class Proverb
 {
-    using System;
-    using System.Collections.Generic;
-
-    public class Proverb
+    public static string[] Recite(string[] proverbs)
     {
-        private static List<string> proverbialLines = new List<string>
+        if (proverbs.Length == 0)
         {
-            "For want of a nail the shoe was lost.",
-            "For want of a shoe the horse was lost.",
-            "For want of a horse the rider was lost.",
-            "For want of a rider the message was lost.",
-            "For want of a message the battle was lost.",
-            "For want of a battle the kingdom was lost.",
-            "And all for the want of a horseshoe nail."
-        };
-
-        public static string AllLines()
-        {
-            return string.Join("\n", proverbialLines);
+            return new string[0];
         }
 
-        public static string Line(int lineNumber)
+        var result = new List<string>();
+        for (int i = 0; i < proverbs.Length - 1; i++)
         {
-            if (lineNumber <= 0 || lineNumber > proverbialLines.Count)
-            {
-                throw new ArgumentOutOfRangeException($"Wrong line number: {lineNumber}");
-            }
-
-            return proverbialLines[lineNumber - 1];
+            var pair = proverbs.Skip(i).Take(2).ToArray();
+            result.Add($"For want of a {pair[0]} the {pair[1]} was lost.");
         }
+
+        result.Add($"And all for the want of a {proverbs[0]}.");
+
+        return result.ToArray();
     }
 }
