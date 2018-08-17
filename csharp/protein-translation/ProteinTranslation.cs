@@ -1,38 +1,45 @@
-﻿namespace Exercism_protein_translation
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+public class ProteinTranslation
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    public class ProteinTranslation
+    private static Dictionary<string, string> codonProteinMap = new Dictionary<string, string>
     {
-        private static Dictionary<string, string> codonProteinMap = new Dictionary<string, string>
-        {
-            ["AUG"] = "Methionine",
-            ["UUU"] = "Phenylalanine", ["UUC"] = "Phenylalanine",
-            ["UUA"] = "Leucine", ["UUG"] = "Leucine",
-            ["UCU"] = "Serine", ["UCC"] = "Serine", ["UCA"] = "Serine", ["UCG"] = "Serine",
-            ["UAU"] = "Tyrosine", ["UAC"] = "Tyrosine",
-            ["UGU"] = "Cysteine", ["UGC"] = "Cysteine",
-            ["UGG"] = "Tryptophan",
-            ["UAA"] = "STOP", ["UAG"] = "STOP", ["UGA"] = "STOP"
-        };
+        ["AUG"] = "Methionine",
+        ["UUU"] = "Phenylalanine", ["UUC"] = "Phenylalanine",
+        ["UUA"] = "Leucine", ["UUG"] = "Leucine",
+        ["UCU"] = "Serine", ["UCC"] = "Serine", ["UCA"] = "Serine", ["UCG"] = "Serine",
+        ["UAU"] = "Tyrosine", ["UAC"] = "Tyrosine",
+        ["UGU"] = "Cysteine", ["UGC"] = "Cysteine",
+        ["UGG"] = "Tryptophan",
+        ["UAA"] = "STOP", ["UAG"] = "STOP", ["UGA"] = "STOP"
+    };
 
-        public static string[] Translate(string rna)
-        {
-            List<string> proteins = new List<string>();
+    public static string[] Proteins(string rna)
+    {
+        var codons = Regex.Matches(rna, "[A-Z]{3}")
+                          .Cast<Match>()
+                          .Select(e => e.Value)
+                          .ToArray();
 
-            for (int i = 0; i < rna.Length; i += 3)
+        List<string> proteins = new List<string>(codons.Length);
+        foreach (var codon in codons)
+        {
+            if (!codonProteinMap.ContainsKey(codon))
             {
-                string codon = rna.Substring(i, 3);
-                if (codonProteinMap[codon] == "STOP")
-                {
-                    break;
-                }
-
-                proteins.Add(codonProteinMap[codon]);
+                throw new Exception($"Invalid codon: {codon}");
             }
-                
-            return proteins.ToArray();
+
+            if (codonProteinMap[codon] == "STOP")
+            {
+                break;
+            }
+
+            proteins.Add(codonProteinMap[codon]);
         }
+            
+        return proteins.ToArray();
     }
 }

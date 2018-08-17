@@ -1,83 +1,142 @@
-﻿using System;
-using NUnit.Framework;
+using Xunit;
 
-[TestFixture]
 public class ProteinTranslationTest
 {
-    [TestCase("AUG")]
-    public void Identifies_methionine_codons(string codon)
+    [Fact]
+    public void Methionine_rna_sequence()
     {
-        Assert.That(ProteinTranslation.Translate(codon), Is.EquivalentTo(new[] { "Methionine" }));
+        Assert.Equal(new[] { "Methionine" }, ProteinTranslation.Proteins("AUG"));
     }
 
-    [TestCase("UUU", Ignore = "Remove to run test case")]
-    [TestCase("UUC", Ignore = "Remove to run test case")]
-    public void Identifies_phenylalanine_codons(string codon)
+    [Fact]
+    public void Phenylalanine_rna_sequence_1()
     {
-        Assert.That(ProteinTranslation.Translate(codon), Is.EquivalentTo(new[] { "Phenylalanine" }));
+        Assert.Equal(new[] { "Phenylalanine" }, ProteinTranslation.Proteins("UUU"));
     }
 
-    [TestCase("UUA", Ignore = "Remove to run test case")]
-    [TestCase("UUG", Ignore = "Remove to run test case")]
-    public void Identifies_leucine_codons(string codon)
+    [Fact]
+    public void Phenylalanine_rna_sequence_2()
     {
-        Assert.That(ProteinTranslation.Translate(codon), Is.EquivalentTo(new[] { "Leucine" }));
+        Assert.Equal(new[] { "Phenylalanine" }, ProteinTranslation.Proteins("UUC"));
     }
 
-    [TestCase("UCU", Ignore = "Remove to run test case")]
-    [TestCase("UCC", Ignore = "Remove to run test case")]
-    [TestCase("UCA", Ignore = "Remove to run test case")]
-    [TestCase("UCG", Ignore = "Remove to run test case")]
-    public void Identifies_serine_codons(string codon)
+    [Fact]
+    public void Leucine_rna_sequence_1()
     {
-        Assert.That(ProteinTranslation.Translate(codon), Is.EquivalentTo(new[] { "Serine" }));
+        Assert.Equal(new[] { "Leucine" }, ProteinTranslation.Proteins("UUA"));
     }
 
-    [TestCase("UAU", Ignore = "Remove to run test case")]
-    [TestCase("UAC", Ignore = "Remove to run test case")]
-    public void Identifies_tyrosine_codons(string codon)
+    [Fact]
+    public void Leucine_rna_sequence_2()
     {
-        Assert.That(ProteinTranslation.Translate(codon), Is.EquivalentTo(new[] { "Tyrosine" }));
+        Assert.Equal(new[] { "Leucine" }, ProteinTranslation.Proteins("UUG"));
     }
 
-    [TestCase("UGU", Ignore = "Remove to run test case")]
-    [TestCase("UGC", Ignore = "Remove to run test case")]
-    public void Identifies_cysteine_codons(string codon)
+    [Fact]
+    public void Serine_rna_sequence_1()
     {
-        Assert.That(ProteinTranslation.Translate(codon), Is.EquivalentTo(new[] { "Cysteine" }));
+        Assert.Equal(new[] { "Serine" }, ProteinTranslation.Proteins("UCU"));
     }
 
-    [TestCase("UGG", Ignore = "Remove to run test case")]
-    public void Identifies_tryptophan_codons(string codon)
+    [Fact]
+    public void Serine_rna_sequence_2()
     {
-        Assert.That(ProteinTranslation.Translate(codon), Is.EquivalentTo(new[] { "Tryptophan" }));
+        Assert.Equal(new[] { "Serine" }, ProteinTranslation.Proteins("UCC"));
     }
 
-    [Test]
-    [Ignore("Remove to run test")]
-    public void Translates_rna_strand_into_correct_protein()
+    [Fact]
+    public void Serine_rna_sequence_3()
     {
-        Assert.That(ProteinTranslation.Translate("AUGUUUUGG"), Is.EquivalentTo(new[] { "Methionine", "Phenylalanine", "Tryptophan" }));
+        Assert.Equal(new[] { "Serine" }, ProteinTranslation.Proteins("UCA"));
     }
 
-    [Test]
-    [Ignore("Remove to run test")]
-    public void Stops_translation_if_stop_codon_present()
+    [Fact]
+    public void Serine_rna_sequence_4()
     {
-        Assert.That(ProteinTranslation.Translate("AUGUUUUAA"), Is.EquivalentTo(new[] { "Methionine", "Phenylalanine" }));
+        Assert.Equal(new[] { "Serine" }, ProteinTranslation.Proteins("UCG"));
     }
 
-    [Test]
-    [Ignore("Remove to run test")]
-    public void Stops_translation_of_longer_strand()
+    [Fact]
+    public void Tyrosine_rna_sequence_1()
     {
-        Assert.That(ProteinTranslation.Translate("UGGUGUUAUUAAUGGUUU"), Is.EquivalentTo(new[] { "Tryptophan", "Cysteine", "Tyrosine" }));
+        Assert.Equal(new[] { "Tyrosine" }, ProteinTranslation.Proteins("UAU"));
     }
 
-    [Test]
-    [Ignore("Remove to run test")]
-    public void Throws_for_invalid_codons()
+    [Fact]
+    public void Tyrosine_rna_sequence_2()
     {
-        Assert.That(() => ProteinTranslation.Translate("CARROT"), Throws.Exception);
+        Assert.Equal(new[] { "Tyrosine" }, ProteinTranslation.Proteins("UAC"));
+    }
+
+    [Fact]
+    public void Cysteine_rna_sequence_1()
+    {
+        Assert.Equal(new[] { "Cysteine" }, ProteinTranslation.Proteins("UGU"));
+    }
+
+    [Fact]
+    public void Cysteine_rna_sequence_2()
+    {
+        Assert.Equal(new[] { "Cysteine" }, ProteinTranslation.Proteins("UGC"));
+    }
+
+    [Fact]
+    public void Tryptophan_rna_sequence()
+    {
+        Assert.Equal(new[] { "Tryptophan" }, ProteinTranslation.Proteins("UGG"));
+    }
+
+    [Fact]
+    public void Stop_codon_rna_sequence_1()
+    {
+        Assert.Empty(ProteinTranslation.Proteins("UAA"));
+    }
+
+    [Fact]
+    public void Stop_codon_rna_sequence_2()
+    {
+        Assert.Empty(ProteinTranslation.Proteins("UAG"));
+    }
+
+    [Fact]
+    public void Stop_codon_rna_sequence_3()
+    {
+        Assert.Empty(ProteinTranslation.Proteins("UGA"));
+    }
+
+    [Fact]
+    public void Translate_rna_strand_into_correct_protein_list()
+    {
+        Assert.Equal(new[] { "Methionine", "Phenylalanine", "Tryptophan" }, ProteinTranslation.Proteins("AUGUUUUGG"));
+    }
+
+    [Fact]
+    public void Translation_stops_if_stop_codon_at_beginning_of_sequence()
+    {
+        Assert.Empty(ProteinTranslation.Proteins("UAGUGG"));
+    }
+
+    [Fact]
+    public void Translation_stops_if_stop_codon_at_end_of_two_codon_sequence()
+    {
+        Assert.Equal(new[] { "Tryptophan" }, ProteinTranslation.Proteins("UGGUAG"));
+    }
+
+    [Fact]
+    public void Translation_stops_if_stop_codon_at_end_of_three_codon_sequence()
+    {
+        Assert.Equal(new[] { "Methionine", "Phenylalanine" }, ProteinTranslation.Proteins("AUGUUUUAA"));
+    }
+
+    [Fact]
+    public void Translation_stops_if_stop_codon_in_middle_of_three_codon_sequence()
+    {
+        Assert.Equal(new[] { "Tryptophan" }, ProteinTranslation.Proteins("UGGUAGUGG"));
+    }
+
+    [Fact]
+    public void Translation_stops_if_stop_codon_in_middle_of_six_codon_sequence()
+    {
+        Assert.Equal(new[] { "Tryptophan", "Cysteine", "Tyrosine" }, ProteinTranslation.Proteins("UGGUGUUAUUAAUGGUUU"));
     }
 }
