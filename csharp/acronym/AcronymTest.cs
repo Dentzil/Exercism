@@ -1,11 +1,11 @@
 using Xunit;
 
 public class AcronymTest
-{    
+{
     [Fact]
     public void Basic()
     {
-        Assert.Equal("PNG", Acronym.Abbreviate("Portable   Network Graphics"));
+        Assert.Equal("PNG", Acronym.Abbreviate("Portable Network Graphics"));
     }
 
     [Fact]
