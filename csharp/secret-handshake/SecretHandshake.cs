@@ -1,41 +1,27 @@
-﻿namespace Exercism_secret_handshake
+using static System.Math;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class SecretHandshake
 {
-    using System;
-    using System.Collections.Generic;
+    private static List<string> events = new List<string> { "wink", "double blink", "close your eyes", "jump" };
 
-    public static class SecretHandshake
+    public static string[] Commands(int command)
     {
-        private static Tuple<int, string>[] eventCommandValueMap =
+        if (command < 0 || command > 31)
         {
-            Tuple.Create(1, "wink"),
-            Tuple.Create(2, "double blink"),
-            Tuple.Create(4, "close your eyes"),
-            Tuple.Create(8, "jump")
-        };
-
-        public static string[] Commands(int commandValue)
-        {
-            if (commandValue < 0 || commandValue > 31)
-            {
-                throw new ArgumentOutOfRangeException($"Wrong command: {commandValue}");
-            }
-
-            List<string> events = new List<string>();
-
-            foreach (var element in eventCommandValueMap)
-            {
-                if ((commandValue & element.Item1) == element.Item1)
-                {
-                    events.Add(element.Item2);
-                }
-            }
-
-            if ((commandValue & 16) == 16)
-            {
-                events.Reverse();
-            }
-
-            return events.ToArray();
+            throw new ArgumentOutOfRangeException($"Wrong command: {command}");
         }
+
+        List<string> returnEvents = events.Where((e, i) => (command & (int)Pow(2, i)) == (int)Pow(2, i)).ToList();
+
+        if ((command & 16) == 16)
+        {
+            returnEvents.Reverse();
+        }
+
+        return returnEvents.ToArray();
     }
 }
