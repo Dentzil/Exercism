@@ -1,53 +1,56 @@
-﻿namespace Exercism_queen_attack
+using System;
+
+public class QueenAttack
 {
-    using System;
+    public int Row { get; private set; }
+    public int Column { get; private set; }
 
-    public class Queen
+    public QueenAttack(int row, int column)
     {
-        public int Row { get; private set; }
-
-        public int Column { get; private set; }
-
-        public Queen(int row, int column)
+        if (row < 0 || row >= 8 || column < 0 || column >= 8)
         {
-            Row = row;
-
-            Column = column;
+            throw new ArgumentOutOfRangeException();
         }
 
-        public override bool Equals(object obj)
-        {
-            Queen other = obj as Queen;
-            if (other == null)
-            {
-                return false;
-            }
-
-            return Row == other.Row && Column == other.Column;
-        }
-
-        public override int GetHashCode()
-        {
-            return new { Row, Column }.GetHashCode();
-        }
+        Row = row;
+        Column = column;
     }
 
-    public static class Queens
+    public static QueenAttack Create(int row, int column)
     {
-        public static bool CanAttack(Queen white, Queen black)
+        return new QueenAttack(row, column);
+    }
+
+    public static bool CanAttack(QueenAttack queen1, QueenAttack queen2)
+    {
+        if (queen1 == null || queen2 == null || queen1.Equals(queen2))
         {
-            if (white == null || black == null || white.Equals(black))
-            {
-                throw new ArgumentException();
-            }
-
-            if (white.Column != black.Column && white.Row != black.Row &&
-            Math.Abs(white.Column - black.Column) != Math.Abs(white.Row - black.Row))
-            {
-                return false;
-            }
-
-            return true;
+            throw new ArgumentException();
         }
+
+        if (queen1.Row != queen2.Row
+            && queen1.Column != queen2.Column
+            && Math.Abs(queen1.Row - queen2.Row) != Math.Abs(queen1.Column - queen2.Column))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public override bool Equals(object obj)
+    {
+        QueenAttack other = obj as QueenAttack;
+        if (other == null)
+        {
+            return false;
+        }
+
+        return Row == other.Row && Column == other.Column;
+    }
+
+    public override int GetHashCode()
+    {
+        return new { Row, Column }.GetHashCode();
     }
 }
