@@ -11,7 +11,7 @@ const scrableScores = {
 function score(word) {
     word = word || "";
 
-    return word.split('').reduce((acc, curr) => acc += scrableScores[curr.roLowerCase()] || 0, 0);
+    return word.split('').reduce((acc, curr) => acc += scrableScores[curr.toLowerCase()] || 0, 0);
 };
 
 module.exports = score;
