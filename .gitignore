@@ -3,8 +3,4 @@ obj
 .solution.json
 *.out
 *.out.dSYM
-CMakeFiles
-CMakeScripts
-*.cmake
-CMakeCache.txt
-*.xcodeproj
+cpp/*/build
