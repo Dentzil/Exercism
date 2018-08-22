@@ -6,6 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *abbreviate(const char *phrase);
+char *abbreviate(const char *const phrase);
 
 #endif

@@ -1,6 +1,6 @@
 #include "acronym.h"
 
-char *abbreviate(const char *phrase)
+char *abbreviate(const char *const phrase)
 {
     if (phrase == NULL)
     {
@@ -11,9 +11,9 @@ char *abbreviate(const char *phrase)
     char* abbreviate = (char*)calloc(strlen(phrase), sizeof(char));
     char* abbreviate_ptr = abbreviate;
     
-    for (; *phrase != '\0'; phrase++)
+    for (size_t i = 0; phrase[i] != '\0'; i++)
     {
-        if (isalpha(*phrase))
+        if (isalpha(phrase[i]))
         {
             if (take_it)
             {
