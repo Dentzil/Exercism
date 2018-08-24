@@ -16,7 +16,9 @@ class Pangram {
             }
         }
 
-        return letters.filter(e => e === 0).length === 0;
+        const missingLetters = letters.filter(e => e === 0).length;
+
+        return missingLetters === 0;
     }
 
     _isLetter(c) {
