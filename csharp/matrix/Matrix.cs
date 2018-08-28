@@ -12,7 +12,7 @@ public class Matrix
         VerifyMatrix();
 
         Rows = GetRowsCount();
-        Cols = GetColimnsCount();
+        Cols = GetColumnsCount();
     }
 
     public int Rows { get; }
@@ -99,7 +99,7 @@ public class Matrix
         return _matrix.Length;
     }
 
-    private int GetColimnsCount()
+    private int GetColumnsCount()
     {
         return _matrix[0].Length;
     }
