@@ -2,6 +2,11 @@
 
 bool is_isogram(const char *const str)
 {
+    if (str == NULL)
+    {
+        return false;
+    }
+
     int char_repetitions[26] = { 0 };
     
     for (size_t i = 0; str[i] != '\0'; i++)
