@@ -1,28 +1,42 @@
+// This file was auto-generated based on version 1.5.1 of the canonical data.
+
 using Xunit;
 
 public class LeapTest
 {
     [Fact]
-    public void Valid_leap_year()
+    public void Year_not_divisible_by_4_in_common_year()
     {
-        Assert.Equal(true, Year.IsLeap(1996));
+        Assert.False(Leap.IsLeapYear(2015));
     }
 
-    [Fact]
-    public void Invalid_leap_year()
+    [Fact(Skip = "Remove to run test")]
+    public void Year_divisible_by_2_not_divisible_by_4_in_common_year()
     {
-        Assert.Equal(false, Year.IsLeap(1997));
+        Assert.False(Leap.IsLeapYear(1970));
     }
 
-    [Fact]
-    public void Turn_of_the_20th_century_is_not_a_leap_year()
+    [Fact(Skip = "Remove to run test")]
+    public void Year_divisible_by_4_not_divisible_by_100_in_leap_year()
     {
-        Assert.Equal(false, Year.IsLeap(1900));
+        Assert.True(Leap.IsLeapYear(1996));
     }
 
-    [Fact]
-    public void Turn_of_the_25th_century_is_a_leap_year()
+    [Fact(Skip = "Remove to run test")]
+    public void Year_divisible_by_100_not_divisible_by_400_in_common_year()
     {
-        Assert.Equal(true, Year.IsLeap(2400));
+        Assert.False(Leap.IsLeapYear(2100));
+    }
+
+    [Fact(Skip = "Remove to run test")]
+    public void Year_divisible_by_400_in_leap_year()
+    {
+        Assert.True(Leap.IsLeapYear(2000));
+    }
+
+    [Fact(Skip = "Remove to run test")]
+    public void Year_divisible_by_200_not_divisible_by_400_in_common_year()
+    {
+        Assert.False(Leap.IsLeapYear(1800));
     }
 }
