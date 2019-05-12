@@ -21,6 +21,11 @@ youtube video](http://www.youtube.com/watch?v=Z_2gbGXzFbs).
 
 To run the tests, run the command `dotnet test` from within the exercise directory.
 
+Initially, only the first test will be enabled. This is to encourage you to solve the exercise one step at a time.
+Once you get the first test passing, remove the `Skip` property from the next test and work on getting that test passing.
+Once none of the tests are skipped and they are all passing, you can submit your solution 
+using `exercism submit SpaceAge.cs`
+
 ## Further information
 
 For more detailed information about the C# track, including how to get help if
@@ -30,5 +35,3 @@ you're having trouble, please visit the exercism.io [C# language page](http://ex
 
 Partially inspired by Chapter 1 in Chris Pine's online Learn to Program tutorial. [http://pine.fm/LearnToProgram/?Chapter=01](http://pine.fm/LearnToProgram/?Chapter=01)
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
