@@ -1,73 +1,66 @@
+// This file was auto-generated based on version 1.3.0 of the canonical data.
+
+using System;
 using System.Collections.Generic;
-using NUnit.Framework;
+using Xunit;
 
-[TestFixture]
-public class NucleoTideCountTest
+public class NucleotideCountTest
 {
-    [Test]
-    public void Has_no_nucleotides()
+    [Fact]
+    public void Empty_strand()
     {
-        var dna = new DNA("");
-        var expected = new Dictionary<char, int> { { 'A', 0 }, { 'T', 0 }, { 'C', 0 }, { 'G', 0 } };
-        Assert.That(dna.NucleotideCounts, Is.EqualTo(expected));
+        var expected = new Dictionary<char, int>
+        {
+            ['A'] = 0,
+            ['C'] = 0,
+            ['G'] = 0,
+            ['T'] = 0
+        };
+        Assert.Equal(expected, NucleotideCount.Count(""));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Has_no_adenosine()
+    [Fact]
+    public void Can_count_one_nucleotide_in_single_character_input()
     {
-        var dna = new DNA("");
-        Assert.That(dna.Count('A'), Is.EqualTo(0));
+        var expected = new Dictionary<char, int>
+        {
+            ['A'] = 0,
+            ['C'] = 0,
+            ['G'] = 1,
+            ['T'] = 0
+        };
+        Assert.Equal(expected, NucleotideCount.Count("G"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Repetitive_cytidine_gets_counts()
+    [Fact]
+    public void Strand_with_repeated_nucleotide()
     {
-        var dna = new DNA("CCCCC");
-        Assert.That(dna.Count('C'), Is.EqualTo(5));
+        var expected = new Dictionary<char, int>
+        {
+            ['A'] = 0,
+            ['C'] = 0,
+            ['G'] = 7,
+            ['T'] = 0
+        };
+        Assert.Equal(expected, NucleotideCount.Count("GGGGGGG"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Repetitive_sequence_has_only_guanosine()
+    [Fact]
+    public void Strand_with_multiple_nucleotides()
     {
-        var dna = new DNA("GGGGGGGG");
-        var expected = new Dictionary<char, int> { { 'A', 0 }, { 'T', 0 }, { 'C', 0 }, { 'G', 8 } };
-        Assert.That(dna.NucleotideCounts, Is.EqualTo(expected));
+        var expected = new Dictionary<char, int>
+        {
+            ['A'] = 20,
+            ['C'] = 12,
+            ['G'] = 17,
+            ['T'] = 21
+        };
+        Assert.Equal(expected, NucleotideCount.Count("AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC"));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Counts_only_thymidine()
+    [Fact]
+    public void Strand_with_invalid_nucleotides()
     {
-        var dna = new DNA("GGGGTAACCCGG");
-        Assert.That(dna.Count('T'), Is.EqualTo(1));
-    }
-
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Counts_a_nucleotide_only_once()
-    {
-        var dna = new DNA("GGTTGG");
-        dna.Count('T');
-        Assert.That(dna.Count('T'), Is.EqualTo(2));
-    }
-
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Validates_nucleotides()
-    {
-        var dna = new DNA("GGTTGG");
-        Assert.Throws<InvalidNucleotideException>(() => dna.Count('X'));
-    }
-
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Counts_all_nucleotides()
-    {
-        var dna = new DNA("AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC");
-        var expected = new Dictionary<char, int> { { 'A', 20 }, { 'T', 21 }, { 'C', 12 }, { 'G', 17 } };
-        Assert.That(dna.NucleotideCounts, Is.EqualTo(expected));
+        Assert.Throws<ArgumentException>(() => NucleotideCount.Count("AGXXACT"));
     }
 }
