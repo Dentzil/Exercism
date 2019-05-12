@@ -1,12 +1,9 @@
-﻿namespace Exercism_two_fer
-{
-    using System;
+using System;
 
-    public static class TwoFer
+public static class TwoFer
+{
+    public static string Speak(string name = null)
     {
-        public static string Name(string input = null)
-        {
-            return $"One for {input ?? "you"}, one for me.";
-        }
+        return $"One for {name ?? "you"}, one for me.";
     }
 }

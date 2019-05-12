@@ -1,27 +1,24 @@
-﻿namespace TwoFerTest
+// This file was auto-generated based on version 1.2.0 of the canonical data.
+
+using Xunit;
+
+public class TwoFerTest
 {
-    using NUnit.Framework;
-    using Exercism_two_fer;
-
-    [TestFixture]
-    public class TwoFerTest
+    [Fact]
+    public void No_name_given()
     {
-        [Test]
-        public void No_name_given()
-        {
-            Assert.AreEqual("One for you, one for me.", TwoFer.Name());
-        }
+        Assert.Equal("One for you, one for me.", TwoFer.Speak());
+    }
 
-        [Test]
-        public void A_name_given()
-        {
-            Assert.AreEqual("One for Alice, one for me.", TwoFer.Name("Alice"));
-        }
+    [Fact(Skip = "Remove to run test")]
+    public void A_name_given()
+    {
+        Assert.Equal("One for Alice, one for me.", TwoFer.Speak("Alice"));
+    }
 
-        [Test]
-        public void Another_name_given()
-        {
-            Assert.AreEqual("One for Bob, one for me.", TwoFer.Name("Bob"));
-        }
+    [Fact(Skip = "Remove to run test")]
+    public void Another_name_given()
+    {
+        Assert.Equal("One for Bob, one for me.", TwoFer.Speak("Bob"));
     }
 }
