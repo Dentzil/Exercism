@@ -5,7 +5,7 @@ public class Hamming
 {
     public static int Distance(string dna1, string dna2)
     {
-        if (dna1.Length != dna2.Length)
+        if (dna1?.Length != dna2?.Length)
         {
             throw new ArgumentException();
         }
