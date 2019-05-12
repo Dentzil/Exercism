@@ -1,11 +1,7 @@
-#ifndef ACRONYM_H
-#define ACRONYM_H
+#pragma once
 
 #include <ctype.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
-char *abbreviate(const char *const phrase);
-
-#endif
+char* abbreviate(const char* const phrase);
