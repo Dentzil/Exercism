@@ -1,41 +1,48 @@
-﻿namespace Exercism_allergies
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+[Flags]
+enum Allergen
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+    Eggs = 1,
+    Peanuts = 2,
+    Shellfish = 4,
+    Strawberries = 8,
+    Tomatoes = 16,
+    Chocolate = 32,
+    Pollen = 64,
+    Cats = 128
+}
 
-    public class Allergies
+class Allergies
+{
+    private readonly Allergen _allergiesValue = 0;
+    private readonly List<Allergen> _allergiesList = new List<Allergen>();
+
+    public Allergies(int allergies)
     {
-        private Dictionary<int, string> _allergiesMap = new Dictionary<int, string>
-        {
-            [1] = "eggs",
-            [2] = "peanuts",
-            [4] = "shellfish",
-            [8] = "strawberries",
-            [16] = "tomatoes",
-            [32] = "chocolate",
-            [64] = "pollen",
-            [128] = "cats"
-        };
+        _allergiesValue = (Allergen)allergies;
 
-        private HashSet<string> _allergies = new HashSet<string>();
-
-        public Allergies(int mask)
+        var allergens = Enum.GetValues(typeof(Allergen)).Cast<Allergen>().ToList();
+        foreach (var allergen in allergens)
         {
-            _allergiesMap
-                .Where(e => (e.Key & mask) == e.Key)
-                .ToList()
-                .ForEach(e => _allergies.Add(e.Value));
+            if ((_allergiesValue & allergen) == allergen)
+            {
+                _allergiesList.Add(allergen);
+            }
         }
+    }
 
-        public bool AllergicTo(string allergy)
-        {
-            return _allergies.Contains(allergy);
-        }
+    public bool IsAllergicTo(Allergen allergy)
+    {
+        bool isAllergic = (_allergiesValue & allergy) == allergy;
+        
+        return isAllergic;
+    }
 
-        public IList<string> List()
-        {
-            return _allergies.ToList();
-        }
+    public Allergen[] List()
+    {
+        return _allergiesList.ToArray();
     }
 }

@@ -29,17 +29,24 @@ allergens that score 256, 512, 1024, etc.).  Your program should
 ignore those components of the score.  For example, if the allergy
 score is 257, your program should only report the eggs (1) allergy.
 
+## Hints
+This exercise requires you to use bitwise operations. For more information, see [this page](https://msdn.microsoft.com/en-us/library/6a71f45d.aspx). 
 
-### Submitting Exercises
+## Running the tests
 
-Note that, when trying to submit an exercise, make sure you're exercise file you're submitting is in the `exercism/csharp/<exerciseName>` directory.
+To run the tests, run the command `dotnet test` from within the exercise directory.
 
-For example, if you're submitting `bob.cs` for the Bob exercise, the submit command would be something like `exercism submit <path_to_exercism_dir>/csharp/bob/bob.cs`.
+Initially, only the first test will be enabled. This is to encourage you to solve the exercise one step at a time.
+Once you get the first test passing, remove the `Skip` property from the next test and work on getting that test passing.
+Once none of the tests are skipped and they are all passing, you can submit your solution 
+using `exercism submit Allergies.cs`
+
+## Further information
+
+For more detailed information about the C# track, including how to get help if
+you're having trouble, please visit the exercism.io [C# language page](http://exercism.io/languages/csharp/resources).
 
 ## Source
 
 Jumpstart Lab Warm-up [http://jumpstartlab.com](http://jumpstartlab.com)
-
-## Submitting Incomplete Problems
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
 
