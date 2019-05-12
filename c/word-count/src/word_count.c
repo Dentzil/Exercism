@@ -1,21 +1,21 @@
 #include "word_count.h"
 
-void initialize_return_words(word_count_word_t *);
-char* get_writable_copy_of(const char *);
+void initialize_result_container(word_count_word_t*);
+char* get_writable_copy_of(const char* const);
 void clear_word(char *);
 bool isapostroph(char);
 int find_word(word_count_word_t *, const char *);
 
-int word_count(const char *input_text, word_count_word_t *words)
+int word_count(const char* const input_text, word_count_word_t* words)
 {
-    initialize_return_words(words);
+    initialize_result_container(words);
     
     int count = 0;
     
-    char *text = get_writable_copy_of(input_text);
-    const char *delimeters = " .,\n";
+    char* text = get_writable_copy_of(input_text);
+    const char* const delimeters = " .,\n";
     
-    char *word = strtok(text, delimeters);
+    char* word = strtok(text, delimeters);
     while(word != NULL)
     {
         clear_word(word);
@@ -48,24 +48,24 @@ int word_count(const char *input_text, word_count_word_t *words)
     return count;
 }
 
-void initialize_return_words(word_count_word_t *words)
+void initialize_result_container(word_count_word_t* words)
 {
     memset(words, 0, sizeof(word_count_word_t) * MAX_WORDS);
 }
 
-char* get_writable_copy_of(const char *text)
+char* get_writable_copy_of(const char* const text)
 {
-    char *writable_text = (char*)calloc(strlen(text) + 1, sizeof(char));
+    char* writable_text = (char*)calloc(strlen(text) + 1, sizeof(char));
     strcpy(writable_text, text);
     
     return writable_text;
 }
 
-void clear_word(char *word)
+void clear_word(char* word)
 {
     size_t i = 0;
     
-    for (char *ptr = word; *ptr != '\0'; ptr++)
+    for (char* ptr = word; *ptr != '\0'; ptr++)
     {
         if (isalnum(*ptr))
         {
@@ -88,7 +88,7 @@ bool isapostroph(char c)
     return c == '\'';
 }
 
-int find_word(word_count_word_t *words, const char *word)
+int find_word(word_count_word_t* words, const char* word)
 {
     for (size_t i = 0; i < MAX_WORDS; i++)
     {
