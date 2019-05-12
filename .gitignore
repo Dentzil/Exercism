@@ -6,3 +6,5 @@ obj
 cpp/*/build
 node_modules
 package-lock.json
+.editorconfig
+.exercism
