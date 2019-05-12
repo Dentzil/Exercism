@@ -1,39 +1,67 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 public class Robot
 {
     private const int LettersLength = 2;
     private const int NumbersLength = 3;
 
-    private static Random rand = new Random();
-    private static HashSet<string> robotNames = new HashSet<string>();
+    private static readonly Random _rand = new Random();
+    private static readonly HashSet<string> _robotNames = new HashSet<string>();
 
-    public string Name { get; private set; }
+    private string _name = null;
 
-    public Robot()
-    {
-        GenerateRobotName();
+    public string Name
+    { 
+        get
+        {
+            if (_name == null)
+            {
+                GenerateName();
+            }
+
+            return _name;
+        }
+
+        private set
+        {
+            _name = value;
+        }
     }
 
     public void Reset()
     {
-        robotNames.Remove(Name);
-        Name = null;
+        _robotNames.Remove(Name);
+        _name = null;
     }
 
-    private void GenerateRobotName()
+    private void GenerateName()
     {
         string generatedName;
+        bool isValidName;
 
         do
         {
-            generatedName = string.Empty;
-            generatedName += string.Concat(Enumerable.Range(0, LettersLength).Select(e => (char)rand.Next(65, 91)));
-            generatedName += string.Concat(Enumerable.Range(0, NumbersLength).Select(e => rand.Next(0, 10)));
-        } while (robotNames.Add(generatedName));
+            generatedName = GenerateRandomLetters(LettersLength) + GenerateRandomNumbers(NumbersLength);
+            isValidName = _robotNames.Add(generatedName);
+        } while (!isValidName);
 
-        Name = generatedName;
+        _name = generatedName;
+    }
+
+    private string GenerateRandomLetters(int length)
+    {
+        string letters = string.Concat(Enumerable.Range(0, length).Select(e => (char)_rand.Next(65, 91)));
+
+        return letters;
+    }
+
+    private string GenerateRandomNumbers(int length)
+    {
+        string numbers = string.Concat(Enumerable.Range(0, length).Select(e => _rand.Next(0, 10)));
+
+        return numbers;
     }
 }
