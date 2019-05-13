@@ -1,81 +1,79 @@
-using System.Collections.Generic;
-using NUnit.Framework;
+// This file was auto-generated based on version 1.0.0 of the canonical data.
 
-[TestFixture]
+using System;
+using Xunit;
+
 public class GradeSchoolTest
 {
-    private School school;
-
-    [SetUp]
-    public void Setup()
+    [Fact]
+    public void Adding_a_student_adds_them_to_the_sorted_roster()
     {
-        school = new School();
+        var sut = new GradeSchool();
+        sut.Add("Aimee", 2);
+        var expected = new[] { "Aimee" };
+        Assert.Equal(expected, sut.Roster());
     }
 
-    [Test]
-    public void New_school_has_an_empty_roster()
+    [Fact]
+    public void Adding_more_student_adds_them_to_the_sorted_roster()
     {
-        Assert.That(school.Roster, Has.Count.EqualTo(0));
+        var sut = new GradeSchool();
+        sut.Add("Blair", 2);
+        sut.Add("James", 2);
+        sut.Add("Paul", 2);
+        var expected = new[] { "Blair", "James", "Paul" };
+        Assert.Equal(expected, sut.Roster());
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Adding_a_student_adds_them_to_the_roster_for_the_given_grade()
+    [Fact]
+    public void Adding_students_to_different_grades_adds_them_to_the_same_sorted_roster()
     {
-        school.Add("Aimee", 2);
-        var expected = new List<string> { "Aimee" };
-        Assert.That(school.Roster[2], Is.EqualTo(expected));
+        var sut = new GradeSchool();
+        sut.Add("Chelsea", 3);
+        sut.Add("Logan", 7);
+        var expected = new[] { "Chelsea", "Logan" };
+        Assert.Equal(expected, sut.Roster());
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Adding_more_students_to_the_same_grade_adds_them_to_the_roster()
+    [Fact]
+    public void Roster_returns_an_empty_list_if_there_are_no_students_enrolled()
     {
-        school.Add("Blair", 2);
-        school.Add("James", 2);
-        school.Add("Paul", 2);
-        var expected = new List<string> { "Blair", "James", "Paul" };
-        Assert.That(school.Roster[2], Is.EqualTo(expected));
+        var sut = new GradeSchool();
+        var expected = Array.Empty<string>();
+        Assert.Empty(sut.Roster());
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Adding_students_to_different_grades_adds_them_to_the_roster()
+    [Fact]
+    public void Student_names_with_grades_are_displayed_in_the_same_sorted_roster()
     {
-        school.Add("Chelsea", 3);
-        school.Add("Logan", 7);
-        Assert.That(school.Roster[3], Is.EqualTo(new List<string> { "Chelsea" }));
-        Assert.That(school.Roster[7], Is.EqualTo(new List<string> { "Logan" }));
+        var sut = new GradeSchool();
+        sut.Add("Peter", 2);
+        sut.Add("Anna", 1);
+        sut.Add("Barb", 1);
+        sut.Add("Zoe", 2);
+        sut.Add("Alex", 2);
+        sut.Add("Jim", 3);
+        sut.Add("Charlie", 1);
+        var expected = new[] { "Anna", "Barb", "Charlie", "Alex", "Peter", "Zoe", "Jim" };
+        Assert.Equal(expected, sut.Roster());
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
+    [Fact]
     public void Grade_returns_the_students_in_that_grade_in_alphabetical_order()
     {
-        school.Add("Franklin", 5);
-        school.Add("Bradley", 5);
-        school.Add("Jeff", 1);
-        var expected = new List<string> { "Bradley", "Franklin" };
-        Assert.That(school.Grade(5), Is.EqualTo(expected));
+        var sut = new GradeSchool();
+        sut.Add("Franklin", 5);
+        sut.Add("Bradley", 5);
+        sut.Add("Jeff", 1);
+        var expected = new[] { "Bradley", "Franklin" };
+        Assert.Equal(expected, sut.Grade(5));
     }
 
-    [Ignore("Remove to run test")]
-    [Test]
+    [Fact]
     public void Grade_returns_an_empty_list_if_there_are_no_students_in_that_grade()
     {
-        Assert.That(school.Grade(1), Is.EqualTo(new List<string>()));
-    }
-
-    [Ignore("Remove to run test")]
-    [Test]
-    public void Student_names_in_each_grade_in_roster_are_sorted()
-    {
-        school.Add("Jennifer", 4);
-        school.Add("Kareem", 6);
-        school.Add("Christopher", 4);
-        school.Add("Kyle", 3);
-        Assert.That(school.Roster[3], Is.EqualTo(new List<string> { "Kyle" }));
-        Assert.That(school.Roster[4], Is.EqualTo(new List<string> { "Christopher", "Jennifer" }));
-        Assert.That(school.Roster[6], Is.EqualTo(new List<string> { "Kareem" }));
+        var sut = new GradeSchool();
+        var expected = Array.Empty<string>();
+        Assert.Empty(sut.Grade(1));
     }
 }

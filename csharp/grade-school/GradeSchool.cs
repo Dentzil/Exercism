@@ -1,30 +1,30 @@
-﻿namespace Exercism_grade_school
+using System.Collections.Generic;
+using System.Linq;
+
+public class GradeSchool
 {
-    using System.Collections.Generic;
-    using System.Linq;
+    private SortedDictionary<int, List<string>> _roster = new SortedDictionary<int, List<string>>();
 
-    public class School
+    public void Add(string studentName, int grade)
     {
-        private Dictionary<int, List<string>> _roster = new Dictionary<int, List<string>>();
-
-        public Dictionary<int, List<string>> Roster => _roster.ToDictionary(k => k.Key, v => v.Value.ToList());
-
-        public void Add(string studentName, int grade)
+        if (_roster.ContainsKey(grade))
         {
-            if (_roster.ContainsKey(grade))
-            {
-                _roster[grade].Add(studentName);
-                _roster[grade].Sort();
-            }
-            else
-            {
-                _roster[grade] = new List<string> { studentName };
-            }
+            _roster[grade].Add(studentName);
+            _roster[grade].Sort();
         }
-
-        public List<string> Grade(int grade)
+        else
         {
-            return _roster.ContainsKey(grade) ? _roster[grade].ToList() : new List<string>();
+            _roster[grade] = new List<string> { studentName };
         }
+    }
+
+    public string[] Grade(int grade)
+    {
+        return _roster.ContainsKey(grade) ? _roster[grade].ToArray() : new string[0];
+    }
+
+    public string[] Roster()
+    {
+        return _roster.SelectMany(e => e.Value).ToArray();
     }
 }
