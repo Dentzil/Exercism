@@ -1,57 +1,66 @@
-﻿namespace Exercism_clock
+using System;
+
+public class Clock : IEquatable<Clock>
 {
-    public class Clock
+    private const int MinutesPerHour = 60;
+    private const int MinutesPerDay = 1440;
+
+    private readonly int _hours;
+    private readonly int _minutes;
+    private readonly int _totalMinutes;
+
+    public Clock(int hours, int minutes = 0)
     {
-        private const int MinutesInHour = 60;
-
-        private const int MinutesInDay = 1440;
-
-        private readonly int _minutes;
-
-        public Clock(int hours, int minutes = 0)
+        _totalMinutes = (hours * MinutesPerHour + minutes) % MinutesPerDay;
+        if (_totalMinutes < 0)
         {
-            _minutes = (hours * MinutesInHour + minutes) % MinutesInDay;
+            _totalMinutes += MinutesPerDay;
         }
 
-        public Clock Add(int minutes)
-        {
-            int newTime = (_minutes + minutes) % MinutesInDay;
+        _hours = _totalMinutes / MinutesPerHour;
+        _minutes = _totalMinutes % MinutesPerHour;
+    }
 
-            return new Clock(0, newTime);
+    public Clock Add(int minutes)
+    {
+        int newTotalMinutes = (_totalMinutes + minutes) % MinutesPerDay;
+
+        return new Clock(0, newTotalMinutes);
+    }
+
+    public bool Equals(Clock other)
+    {
+        if (other == null)
+        {
+            return false;
         }
 
-        public override bool Equals(object obj)
-        {
-            Clock other = obj as Clock;
-            if (other == null)
-            {
-                return false;
-            }
+        return _totalMinutes == other._totalMinutes;
+    }
 
-            return _minutes == other._minutes;
+    public override bool Equals(object obj)
+    {
+        return obj is Clock ? Equals((Clock)obj) : false;        
+    }
+
+    public override int GetHashCode()
+    {
+        return _totalMinutes.GetHashCode();
+    }
+
+    public Clock Subtract(int minutes)
+    {
+        int newTotalMinutes = (_totalMinutes - minutes) % MinutesPerDay;
+        if  (newTotalMinutes < 0)
+        {
+            newTotalMinutes += MinutesPerDay;
         }
 
-        public override int GetHashCode()
-        {
-            return _minutes.GetHashCode();
-        }
+        return new Clock(0, newTotalMinutes);
+    }
 
-        public Clock Subtract(int minutes)
-        {
-            int newTime = _minutes - minutes;
-            if (newTime < 0)
-            {
-                newTime = MinutesInDay + newTime;
-            }
-
-            return new Clock(0, newTime);
-        }
-
-        public override string ToString()
-        {
-            return $"{_minutes / MinutesInHour:D2}:{_minutes % MinutesInHour:D2}";
-        }
-
-
+    public override string ToString()
+    {
+        return $"{_hours:D2}:{_minutes:D2}";
     }
 }
