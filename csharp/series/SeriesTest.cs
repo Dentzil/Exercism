@@ -1,81 +1,144 @@
 using System;
+
 using Xunit;
 
 public class SeriesTest
 {
     [Fact]
-    public void Slices_of_one_from_one()
+    public void Slices_InputStringIsNull_ThrowsArgumentException()
     {
-        var expected = new[] { "1" };
-        Assert.Equal(expected, Series.Slices("1", 1));
+        // Arrange
+        string testString = null;
+
+        // Act + Assert
+        var ex = Assert.Throws<ArgumentException>(() => Series.Slices(testString, 1));
+        Assert.Equal("Empty input string.", ex.Message);
     }
 
     [Fact]
-    public void Slices_of_one_from_two()
+    public void Slices_ZeroLength_ThrowsArgumentException()
     {
-        var expected = new[] { "1", "2" };
-        Assert.Equal(expected, Series.Slices("12", 1));
+        // Arrange
+        int length = 0;
+
+        // Act + Assert
+        var ex = Assert.Throws<ArgumentException>(() => Series.Slices("12345", length));
+        Assert.Equal("Slice length must be greather than 0.", ex.Message);
     }
 
     [Fact]
-    public void Slices_of_two()
+    public void Slices_LengthLessThanZero_ThrowsArgumentException()
     {
-        var expected = new[] { "35" };
-        Assert.Equal(expected, Series.Slices("35", 2));
+        // Arrange
+        int length = -1;
+
+        // Act + Assert
+        var ex = Assert.Throws<ArgumentException>(() => Series.Slices("12345", length));
+        Assert.Equal("Slice length must be greather than 0.", ex.Message);
     }
 
     [Fact]
-    public void Slices_of_two_overlap()
+    public void Slices_OneFromOne_ReturnsOneSerie()
     {
-        var expected = new[] { "91", "14", "42" };
-        Assert.Equal(expected, Series.Slices("9142", 2));
+        // Arrange
+        string testInput = "1";
+        int testLength = 1;
+        var expectedSeries = new[] { "1" };
+
+        // Act
+        var actualSeries = Series.Slices(testInput, testLength);
+
+        // Assert
+        Assert.Equal(expectedSeries, actualSeries);
     }
 
     [Fact]
-    public void Slices_can_include_duplicates()
+    public void Slices_OneFromTwo_ReturnsTwoSeries()
     {
-        var expected = new[] { "777", "777", "777", "777" };
-        Assert.Equal(expected, Series.Slices("777777", 3));
+        // Arrange
+        string testInput = "12";
+        int testLength = 1;
+        var expectedSeries = new[] { "1", "2" };
+
+        // Act
+        var actualSeries = Series.Slices(testInput, testLength);
+
+        // Assert
+        Assert.Equal(expectedSeries, actualSeries);
     }
 
     [Fact]
-    public void Slices_of_a_long_series()
+    public void Slices_TwoFromTwo_ReturnsOneSerie()
     {
-        var expected = new[]
-        {
-            "91849",
-            "18493",
-            "84939",
-            "49390",
-            "93904",
-            "39042",
-            "90424",
-            "04243"
-        };
-        Assert.Equal(expected, Series.Slices("918493904243", 5));
+        // Arrange
+        string testInput = "35";
+        int testLength = 2;
+        var expectedSeries = new[] { "35" };
+
+        // Act
+        var actualSeries = Series.Slices(testInput, testLength);
+
+        // Assert
+        Assert.Equal(expectedSeries, actualSeries);
     }
 
     [Fact]
-    public void Slice_length_is_too_large()
+    public void Slices_TwoFromManyWithOverlapping_ReturnsAppropriateSeries()
     {
-        Assert.Throws<ArgumentException>(() => Series.Slices("12345", 6));
+        // Arrange
+        string testInput = "9142";
+        int testLength = 2;
+        var expectedSeries = new[] { "91", "14", "42" };
+
+        // Act
+        var actualSeries = Series.Slices(testInput, testLength);
+
+        // Assert
+        Assert.Equal(expectedSeries, actualSeries);
     }
 
     [Fact]
-    public void Slice_length_cannot_be_zero()
+    public void Slices_WithDuplicates_ReturnsAppropriateSeries()
     {
-        Assert.Throws<ArgumentException>(() => Series.Slices("12345", 0));
+        // Arrange
+        string testInput = "777777";
+        int testLength = 3;
+        var expectedSeries = new[] { "777", "777", "777", "777" };
+
+        // Act
+        var actualSeries = Series.Slices(testInput, testLength);
+
+        // Assert
+        Assert.Equal(expectedSeries, actualSeries);
     }
 
     [Fact]
-    public void Slice_length_cannot_be_negative()
+    public void Slices_LongInput_ReturnsAppropriatesSeries()
     {
-        Assert.Throws<ArgumentException>(() => Series.Slices("123", -1));
+        // Arrange
+        string testInput = "918493904243";
+        int testLength = 5;
+        var expectedSeries = new[] { "91849", "18493", "84939", "49390", "93904", "39042", "90424", "04243" };
+
+        // Act
+        var actualSeries = Series.Slices(testInput, testLength);
+
+        // Assert
+        Assert.Equal(expectedSeries, actualSeries);
     }
 
     [Fact]
-    public void Empty_series_is_invalid()
+    public void Slice_LengthTooLarge_ReturnsWholeString()
     {
-        Assert.Throws<ArgumentException>(() => Series.Slices("", 1));
+        // Arrange
+        string testInput = "12345";
+        int testLength = 10;
+        var expectedSeries = new[] { "12345" };
+
+        // Act
+        var actualSeries = Series.Slices(testInput, testLength);
+
+        // Assert
+        Assert.Equal(expectedSeries, actualSeries);
     }
 }

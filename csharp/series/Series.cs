@@ -4,35 +4,26 @@ using System.Linq;
 
 public static class Series
 {
-    public static string[] Slices(string series, int sliceLength)
+    public static string[] Slices(string inputString, int length)
     {
-        CheckSeries(series);
-        CheckSliceLength(sliceLength, series.Length);
+        if (string.IsNullOrEmpty(inputString))
+        {
+            throw new ArgumentException("Empty input string.");
+        }
 
-        return Regex.Matches(series, $"(?=(\\d{{{sliceLength}}}))")
+        if (length <= 0)
+        {
+            throw new ArgumentException("Slice length must be greather than 0.");
+        }
+
+        if (length >= inputString.Length)
+        {
+            return new[] { inputString };
+        }
+
+        return Regex.Matches(inputString, $"(?=(\\d{{{length}}}))")
                     .Cast<Match>()
                     .Select(e => e.Groups[1].Value)
                     .ToArray();
-    }
-
-    private static void CheckSeries(string series)
-    {
-        if (series == string.Empty)
-        {
-            throw new ArgumentException("Series cannot be empty");
-        }
-    }
-
-    private static void CheckSliceLength(int sliceLength, int seriesLength)
-    {
-        if (sliceLength <= 0)
-        {
-            throw new ArgumentException("Slice length must be greather than 0");
-        }
-
-        if (sliceLength > seriesLength)
-        {
-            throw new ArgumentException("Slice length must be less than or equal the series length");
-        }
     }
 }
