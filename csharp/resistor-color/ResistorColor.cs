@@ -4,19 +4,7 @@ using System.Linq;
 
 public static class ResistorColor
 {
-    private static Dictionary<string, int> _colorNumberMap = new Dictionary<string, int>
-    {
-        ["black"] = 0,
-        ["brown"] = 1,
-        ["red"] = 2,
-        ["orange"] = 3,
-        ["yellow"] = 4,
-        ["green"] = 5,
-        ["blue"] = 6,
-        ["violet"] = 7,
-        ["grey"] = 8,
-        ["white"] = 9
-    };
+    private static List<string> _colors = new List<string> { "black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white" };
 
     public static int ColorCode(string color)
     {
@@ -25,7 +13,8 @@ public static class ResistorColor
             throw new ArgumentNullException(nameof(color));
         }
 
-        if (_colorNumberMap.TryGetValue(color, out int number) == false)
+        int number = _colors.FindIndex(e => e == color);
+        if (number == -1)
         {
             throw new ArgumentException($"Unknown color: {color}");
         }
@@ -35,6 +24,6 @@ public static class ResistorColor
 
     public static string[] Colors()
     {
-        return _colorNumberMap.Keys.ToArray();
+        return _colors.ToArray();
     }
 }
