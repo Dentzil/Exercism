@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public static class ResistorColor
 {
@@ -13,7 +12,7 @@ public static class ResistorColor
             throw new ArgumentNullException(nameof(color));
         }
 
-        int number = _colors.FindIndex(e => e == color);
+        int number = _colors.IndexOf(color);
         if (number == -1)
         {
             throw new ArgumentException($"Unknown color: {color}");
