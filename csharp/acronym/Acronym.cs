@@ -3,12 +3,12 @@ using System.Linq;
 
 public static class Acronym
 {
+    private static Regex _regex = new Regex("[^a-zA-Z']");
+
     public static string Abbreviate(string phrase)
     {
-        var singleWords = Regex.Split(phrase, "[^a-zA-Z]")
-                               .Where(e => e != string.Empty)
-                               .ToList();
+        var words = _regex.Split(phrase).Where(e => e != string.Empty).ToList();
 
-        return string.Join("", singleWords.Select(e =>  char.ToUpper(e[0])));
+        return string.Join("", words.Select(e =>  char.ToUpper(e[0])));
     }
 }
