@@ -117,9 +117,21 @@ public class RationalNumbersTest
     }
 
     [Fact]
+    public void Absolute_value_of_a_positive_rational_number_with_negative_numerator_and_denominator()
+    {
+        Assert.Equal(new RationalNumber(1, 2), new RationalNumber(-1, -2).Abs());
+    }
+
+    [Fact]
     public void Absolute_value_of_a_negative_rational_number()
     {
         Assert.Equal(new RationalNumber(1, 2), new RationalNumber(-1, 2).Abs());
+    }
+
+    [Fact]
+    public void Absolute_value_of_a_negative_rational_number_with_negative_denominator()
+    {
+        Assert.Equal(new RationalNumber(1, 2), new RationalNumber(1, -2).Abs());
     }
 
     [Fact]
@@ -167,7 +179,7 @@ public class RationalNumbersTest
     [Fact]
     public void Raise_a_real_number_to_a_positive_rational_number()
     {
-        Assert.Equal(16, 8.Expreal(new RationalNumber(4, 3)), precision: 0);
+        Assert.Equal(16, 8.Expreal(new RationalNumber(4, 3)), precision: 7);
     }
 
     [Fact]
@@ -179,7 +191,7 @@ public class RationalNumbersTest
     [Fact]
     public void Raise_a_real_number_to_a_zero_rational_number()
     {
-        Assert.Equal(1, 2.Expreal(new RationalNumber(0, 1)), precision: 0);
+        Assert.Equal(1, 2.Expreal(new RationalNumber(0, 1)), precision: 7);
     }
 
     [Fact]
