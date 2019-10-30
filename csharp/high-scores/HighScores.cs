@@ -5,8 +5,8 @@ using System.Linq;
 public class HighScores
 {
     private List<int> _scores;
-    private int _lastAdded;
-    private int _personalBest;
+    private int? _lastAdded;
+    private int? _personalBest;
     private List<int> _personalTopThree;
 
     public HighScores(List<int> list)
@@ -17,11 +17,6 @@ public class HighScores
         }
 
         _scores = list.ToList();
-        _lastAdded = list.Last();
-
-        var sortedScores = list.OrderByDescending(e => e).ToList();
-        _personalBest = sortedScores.First();
-        _personalTopThree = sortedScores.Take(3).ToList();
     }
 
     public List<int> Scores()
@@ -31,16 +26,47 @@ public class HighScores
 
     public int Latest()
     {
-        return _lastAdded;
+        if (_lastAdded.HasValue == false)
+        {
+            _lastAdded = _scores.Last();
+        }
+
+        return _lastAdded.Value;
     }
 
     public int PersonalBest()
     {
-        return _personalBest;
+        if (_personalBest.HasValue == false)
+        {
+            _personalBest = _scores.Max();
+        }
+
+        return _personalBest.Value;
     }
 
     public List<int> PersonalTopThree()
     {
+        if (_personalTopThree is null)
+        {
+            _personalTopThree = _scores.OrderByDescending(e => e).Take(3).ToList();
+        }
+
         return _personalTopThree.ToList();
     }
+
+    /*
+    public void Add(int score)
+    {
+        ...
+
+        Foo();
+    }
+
+    private void Foo()
+    {
+        _lastAdded = null;
+        _personalBest = null;
+        _personalTopThree = null;
+    }
+    */
 }
