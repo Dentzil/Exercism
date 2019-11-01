@@ -1,3 +1,5 @@
+// This file was auto-generated based on version 1.4.0 of the canonical data.
+
 using System.Collections.Generic;
 using Xunit;
 
@@ -140,6 +142,24 @@ public class WordCountTest
     }
 
     [Fact]
+    public void Substrings_from_the_beginning()
+    {
+        var actual = WordCount.CountWords("Joe can't tell between app, apple and a.");
+        var expected = new Dictionary<string, int>
+        {
+            ["joe"] = 1,
+            ["can't"] = 1,
+            ["tell"] = 1,
+            ["between"] = 1,
+            ["app"] = 1,
+            ["apple"] = 1,
+            ["and"] = 1,
+            ["a"] = 1
+        };
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
     public void Multiple_spaces_not_detected_as_a_word()
     {
         var actual = WordCount.CountWords(" multiple   whitespaces");
@@ -147,6 +167,19 @@ public class WordCountTest
         {
             ["multiple"] = 1,
             ["whitespaces"] = 1
+        };
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void Alternating_word_separators_not_detected_as_a_word()
+    {
+        var actual = WordCount.CountWords(",\n,one,\n ,two \n 'three'");
+        var expected = new Dictionary<string, int>
+        {
+            ["one"] = 1,
+            ["two"] = 1,
+            ["three"] = 1
         };
         Assert.Equal(expected, actual);
     }
