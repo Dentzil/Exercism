@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public static class ListOps
 {
@@ -19,7 +18,7 @@ public static class ListOps
     public static List<T> Reverse<T>(List<T> input)
     {
         var reversed = new List<T>();
-
+        
         for (int i = ListOps.Length(input) - 1; i >= 0; i--)
         {
             reversed.Add(input[i]);

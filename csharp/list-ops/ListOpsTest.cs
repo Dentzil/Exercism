@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using Xunit;
 
 public class ListOpsTest
@@ -167,6 +168,14 @@ public class ListOpsTest
     {
         var list = new List<int> { 1, 3, 5, 7 };
         var expected = new List<int> { 7, 5, 3, 1 };
+        Assert.Equal(expected, ListOps.Reverse(list));
+    }
+
+    [Fact]
+    public void Reverse_the_elements_of_the_list_list_of_lists_is_not_flattened()
+    {
+        var list = new List<List<int>> { new List<int> { 1, 2 }, new List<int> { 3 }, new List<int>(), new List<int> { 4, 5, 6 } };
+        var expected = new List<List<int>> { new List<int> { 4, 5, 6 }, new List<int>(), new List<int> { 3 }, new List<int> { 1, 2 } };
         Assert.Equal(expected, ListOps.Reverse(list));
     }
 }
