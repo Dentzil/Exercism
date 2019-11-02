@@ -13,9 +13,9 @@ public class Anagram
         _baseWordChars = GetOrderedChars(baseWord);
     }
 
-    public string[] Anagrams(string[] potentialMatches)
+    public string[] FindAnagrams(string[] candidates)
     {
-        return potentialMatches.Where(IsMatch).ToArray();
+        return candidates.Where(IsMatch).ToArray();
     }
 
     private IEnumerable<char> GetOrderedChars(string word)
