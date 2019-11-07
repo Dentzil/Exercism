@@ -31,7 +31,7 @@ public static class MatchingBrackets
         return stack.Count == 0;
     }
 
-    private static bool IsOpenBracket(char c) => c == '(' || c == '[' || c == '{';
+    private static bool IsOpenBracket(char c) => _bracketsMap.ContainsValue(c);
 
-    private static bool IsCloseBracket(char c) => c == ')' || c == ']' || c == '}';
+    private static bool IsCloseBracket(char c) => _bracketsMap.ContainsKey(c);
 }
