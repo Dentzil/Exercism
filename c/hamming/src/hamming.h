@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string.h>
 
-size_t compute(const char *const, const char *const);
+long long compute(const char *const, const char *const);
