@@ -1,26 +1,26 @@
 #include "word_count.h"
 
-void initialize_result_container(word_count_word_t*);
-char* get_writable_copy_of(const char* const);
-void clear_word(char *);
-bool isapostroph(char);
+char* copy(const char* const);
+void delete_illegal_chars(char *);
+bool is_apostroph(char);
 int find_word(word_count_word_t *, const char *);
 
 int word_count(const char* const input_text, word_count_word_t* words)
 {
-    initialize_result_container(words);
+    memset(words, 0, sizeof(word_count_word_t) * MAX_WORDS);
     
     int count = 0;
     
-    char* text = get_writable_copy_of(input_text);
+    char* text = copy(input_text);
     const char* const delimeters = " .,\n";
     
     char* word = strtok(text, delimeters);
     while(word != NULL)
     {
-        clear_word(word);
+        delete_illegal_chars(word);
         if (strlen(word) > MAX_WORD_LENGTH)
         {
+            free(text);
             return EXCESSIVE_LENGTH_WORD;
         }
 
@@ -33,6 +33,7 @@ int word_count(const char* const input_text, word_count_word_t* words)
         {
             if (++count > MAX_WORDS)
             {
+                free(text);
                 return EXCESSIVE_NUMBER_OF_WORDS;
             }
             
@@ -48,20 +49,15 @@ int word_count(const char* const input_text, word_count_word_t* words)
     return count;
 }
 
-void initialize_result_container(word_count_word_t* words)
+char* copy(const char* const text)
 {
-    memset(words, 0, sizeof(word_count_word_t) * MAX_WORDS);
-}
-
-char* get_writable_copy_of(const char* const text)
-{
-    char* writable_text = (char*)calloc(strlen(text) + 1, sizeof(char));
-    strcpy(writable_text, text);
+    char* copy_text = (char*)calloc(strlen(text) + 1, sizeof(char));
+    strcpy(copy_text, text);
     
-    return writable_text;
+    return copy_text;
 }
 
-void clear_word(char* word)
+void delete_illegal_chars(char* word)
 {
     size_t i = 0;
     
@@ -71,7 +67,7 @@ void clear_word(char* word)
         {
             *(word + i++) = tolower(*ptr);
         }
-        else if (isapostroph(*ptr))
+        else if (is_apostroph(*ptr))
         {
             if (i != 0 && *(ptr + 1) != '\0')
             {
@@ -83,7 +79,7 @@ void clear_word(char* word)
     *(word + i) = '\0';
 }
 
-bool isapostroph(char c)
+bool is_apostroph(char c)
 {
     return c == '\'';
 }
