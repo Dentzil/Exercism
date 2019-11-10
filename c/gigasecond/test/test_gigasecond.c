@@ -20,7 +20,8 @@ static inline time_t days_from_1ad(int year)
    return 365 * year + (year / 400) - (year / 100) + (year / 4);
 }
 
-time_t construct_date(int year, int month, int day, int hour, int min, int sec)
+static time_t
+construct_date(int year, int month, int day, int hour, int min, int sec)
 {
    static const time_t seconds_in_day = 86400;  // 60 * 60 * 24
    static const time_t days[2][12] = {
@@ -45,35 +46,35 @@ void tearDown(void)
 {
 }
 
-void test_date(void)
+static void test_date(void)
 {
    time_t expected = construct_date(2043, 1, 1, 1, 46, 40);
    time_t actual = gigasecond_after(construct_date(2011, 4, 25, 0, 0, 0));
    TEST_ASSERT(expected == actual);
 }
 
-void test_another_date(void)
+static void test_another_date(void)
 {
    time_t expected = construct_date(2009, 2, 19, 1, 46, 40);
    time_t actual = gigasecond_after(construct_date(1977, 6, 13, 0, 0, 0));
    TEST_ASSERT(expected == actual);
 }
 
-void test_third_date(void)
+static void test_third_date(void)
 {
    time_t expected = construct_date(1991, 3, 27, 1, 46, 40);
    time_t actual = gigasecond_after(construct_date(1959, 7, 19, 0, 0, 0));
    TEST_ASSERT(expected == actual);
 }
 
-void test_date_and_time(void)
+static void test_date_and_time(void)
 {
    time_t expected = construct_date(2046, 10, 2, 23, 46, 40);
    time_t actual = gigasecond_after(construct_date(2015, 1, 24, 22, 0, 0));
    TEST_ASSERT(expected == actual);
 }
 
-void test_date_and_time_with_day_rollover(void)
+static void test_date_and_time_with_day_rollover(void)
 {
    time_t expected = construct_date(2046, 10, 3, 1, 46, 39);
    time_t actual = gigasecond_after(construct_date(2015, 1, 24, 23, 59, 59));
@@ -81,7 +82,7 @@ void test_date_and_time_with_day_rollover(void)
 }
 
 /*
-void test_your_birthday(void)
+static void test_your_birthday(void)
 {
    time_t birthday = construct_date(1989, 1, 1, 1, 1, 1);
    time_t gigday = gigasecond_after(birthday);
