@@ -10,54 +10,54 @@ void tearDown(void)
 {
 }
 
-void test_transcription(const char *dna, const char *expected)
+static void test_transcription(const char *dna, const char *expected)
 {
    char *rna = to_rna(dna);
    TEST_ASSERT_EQUAL_STRING(expected, rna);
    free(rna);
 }
 
-void test_failure(const char *dna)
+static void test_failure(const char *dna)
 {
    TEST_ASSERT_NULL(to_rna(dna));
 }
 
-void test_transcribes_G_to_C(void)
+static void test_transcribes_G_to_C(void)
 {
    test_transcription("G", "C");
 }
 
-void test_transcribes_C_to_G(void)
+static void test_transcribes_C_to_G(void)
 {
    test_transcription("C", "G");
 }
 
-void test_transcribes_T_to_A(void)
+static void test_transcribes_T_to_A(void)
 {
    test_transcription("T", "A");
 }
 
-void test_transcribes_A_to_U(void)
+static void test_transcribes_A_to_U(void)
 {
    test_transcription("A", "U");
 }
 
-void test_transcribes_all_occurrences(void)
+static void test_transcribes_all_occurrences(void)
 {
    test_transcription("ACGTGGTCTTAA", "UGCACCAGAAUU");
 }
 
-void test_handle_invalid_nucleotide(void)
+static void test_handle_invalid_nucleotide(void)
 {
    test_failure("U");
 }
 
-void test_handle_completely_invalid_input(void)
+static void test_handle_completely_invalid_input(void)
 {
    test_failure("XXX");
 }
 
-void test_handle_partially_invalid_input(void)
+static void test_handle_partially_invalid_input(void)
 {
    test_failure("ACGTXXXCTTAA");
 }
@@ -75,6 +75,5 @@ int main(void)
    RUN_TEST(test_handle_completely_invalid_input);
    RUN_TEST(test_handle_partially_invalid_input);
 
-   UnityEnd();
-   return 0;
+   return UnityEnd();
 }
