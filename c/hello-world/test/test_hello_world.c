@@ -10,7 +10,7 @@ void tearDown(void)
 {
 }
 
-void test_hello(void)
+static void test_hello(void)
 {
    TEST_ASSERT_EQUAL_STRING("Hello, World!", hello());
 }
@@ -21,7 +21,5 @@ int main(void)
 
    RUN_TEST(test_hello);
 
-   UnityEnd();
-
-   return 0;
+   return UnityEnd();
 }
