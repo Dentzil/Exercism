@@ -1,12 +1,30 @@
-bin
-obj
+# exercism common
+.exercism
 .solution.json
+
+# bash track
+
+
+# c track
 *.out
 *.out.dSYM
-cpp/*/build
-node_modules
-package-lock.json
+
+# c++ track
+
+# c# strack
 .editorconfig
-.exercism
-.eslintrc
 .vscode
+bin
+obj
+
+# f# track
+
+# java track
+.classpath
+.gradle
+.project
+bin
+build
+org.eclipse.buildship.core.prefs
+
+# javascript track
