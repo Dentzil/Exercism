@@ -4,7 +4,6 @@
 
 # bash track
 
-
 # c track
 *.out
 *.out.dSYM
@@ -17,6 +16,7 @@
 bin
 obj
 
+
 # f# track
 
 # java track
@@ -28,3 +28,5 @@ build
 org.eclipse.buildship.core.prefs
 
 # javascript track
+node_modules
+package-lock.json
