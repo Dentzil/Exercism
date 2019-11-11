@@ -1,3 +1,5 @@
+// This file was auto-generated based on version 1.2.0 of the canonical data.
+
 using Xunit;
 
 public class ReverseStringTest
@@ -30,5 +32,11 @@ public class ReverseStringTest
     public void A_palindrome()
     {
         Assert.Equal("racecar", ReverseString.Reverse("racecar"));
+    }
+
+    [Fact]
+    public void An_even_sized_word()
+    {
+        Assert.Equal("reward", ReverseString.Reverse("drawer"));
     }
 }
