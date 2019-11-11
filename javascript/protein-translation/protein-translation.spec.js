@@ -1,63 +1,59 @@
-var translate = require('./protein-translation');
+import { translate } from './protein-translation';
 
-describe('ProteinTranslation', function () {
-  it('Empty RNA has no proteins', function () {
+describe('ProteinTranslation', () => {
+  test('Empty RNA has no proteins', () => {
     expect(translate()).toEqual([]);
   });
 
-  it('Methionine codon translates into protein', function () {
+  test('Methionine codon translates into protein', () => {
     expect(translate('AUG')).toEqual(['Methionine']);
   });
 
-  it('Phenylalanine codons translate into protein', function () {
+  test('Phenylalanine codons translate into protein', () => {
     expect(translate('UUUUUC')).toEqual(['Phenylalanine', 'Phenylalanine']);
   });
 
-  it('Leucine codons translate into protein', function () {
+  test('Leucine codons translate into protein', () => {
     expect(translate('UUAUUG')).toEqual(['Leucine', 'Leucine']);
   });
 
-  it('Serine codons translate into protein', function () {
+  test('Serine codons translate into protein', () => {
     expect(translate('UCUUCCUCAUCG')).toEqual(['Serine', 'Serine', 'Serine', 'Serine']);
   });
 
-  it('Tyrosine codons translate into protein', function () {
+  test('Tyrosine codons translate into protein', () => {
     expect(translate('UAUUAC')).toEqual(['Tyrosine', 'Tyrosine']);
   });
 
-  it('Cysteine codons translate into protein', function () {
+  test('Cysteine codons translate into protein', () => {
     expect(translate('UGUUGC')).toEqual(['Cysteine', 'Cysteine']);
   });
 
-  it('Tryptophan codon translates into protein', function () {
+  test('Tryptophan codon translates into protein', () => {
     expect(translate('UGG')).toEqual(['Tryptophan']);
   });
 
-  it('Sequence starts with stop codon 1', function () {
+  test('Sequence starts with stop codon 1', () => {
     expect(translate('UAAUUUUUA')).toEqual([]);
   });
 
-  it('Sequence starts with stop codon 2', function () {
+  test('Sequence starts with stop codon 2', () => {
     expect(translate('UAGAUGUAU')).toEqual([]);
   });
 
-  it('Sequence starts with stop codon 3', function () {
+  test('Sequence starts with stop codon 3', () => {
     expect(translate('UGAUGU')).toEqual([]);
   });
 
-  it('Small RNA strand', function () {
+  test('Small RNA strand', () => {
     expect(translate('AUGUUUUCU')).toEqual(['Methionine', 'Phenylalanine', 'Serine']);
   });
 
-  it('Stop codon ends translation', function () {
+  test('Stop codon ends translation', () => {
     expect(translate('AUGUUUUCUUAAAUG')).toEqual(['Methionine', 'Phenylalanine', 'Serine']);
   });
 
-  it('Invalid codon throws error', function () {
-    expect(
-      function () {
-        translate('LOL');
-      }
-    ).toThrow(new Error('Invalid codon'));
+  test('Invalid codon throws error', () => {
+    expect(() => translate('LOL')).toThrow(new Error('Invalid codon'));
   });
 });

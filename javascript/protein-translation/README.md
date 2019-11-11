@@ -20,11 +20,11 @@ All subsequent codons after are ignored, like this:
 
 RNA: `"AUGUUUUCUUAAAUG"` =>
 
-Codons: `"AUG", "UUU", "UCU", "UAG", "AUG"` =>
+Codons: `"AUG", "UUU", "UCU", "UAA", "AUG"` =>
 
 Protein: `"Methionine", "Phenylalanine", "Serine"`
 
-Note the stop codon terminates the translation and the final methionine is not translated into the protein sequence.
+Note the stop codon `"UAA"` terminates the translation and the final methionine is not translated into the protein sequence.
 
 Below are the codons and resulting Amino Acids needed for the exercise.
 
@@ -43,33 +43,37 @@ Learn more about [protein translation on Wikipedia](http://en.wikipedia.org/wiki
 
 ## Setup
 
-Go through the setup instructions for JavaScript to install the
- necessary dependencies:
+Go through the setup instructions for Javascript to install the necessary
+dependencies:
 
-http://exercism.io/languages/javascript/installation
+[https://exercism.io/tracks/javascript/installation](https://exercism.io/tracks/javascript/installation)
 
-## Running the test suite
+## Requirements
 
-The provided test suite uses [Jasmine](https://jasmine.github.io/).
-You can install it by opening a terminal window and running the
-following command:
+Install assignment dependencies:
 
-```sh
-npm install -g jasmine
+```bash
+$ npm install
 ```
 
-Run the test suite from the exercise directory with:
+## Making the test suite pass
 
-```sh
-jasmine protein-translation.spec.js
+Execute the tests with:
+
+```bash
+$ npm test
 ```
 
-In many test suites all but the first test have been marked "pending".
-Once you get a test passing, activate the next one by changing `xit` to `it`.
+In the test suites all tests but the first have been skipped.
+
+Once you get a test passing, you can enable the next one by changing `xtest` to
+`test`.
 
 ## Source
 
 Tyler Long
 
 ## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+
+It's possible to submit an incomplete solution so you can see how others have
+completed the exercise.
