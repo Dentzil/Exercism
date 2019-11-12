@@ -1,13 +1,12 @@
 #ifndef RNA_TRANSCRIPTION_H
 #define RNA_TRANSCRIPTION_H
 
-#include <map>
 #include <string>
 
-namespace transcription
+namespace rna_transcription
 {
-    char to_rna(char);
-    std::string to_rna(std::string);
+    char to_rna(char dna_nucleotide);
+    std::string to_rna(std::string dna);
 }
 
 #endif

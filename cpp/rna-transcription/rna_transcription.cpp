@@ -1,23 +1,18 @@
 #include "rna_transcription.h"
 
-namespace transcription
+namespace rna_transcription
 {
-    std::map<char, char> rnaToDnaMap =
+    char to_rna(char dna_nucleotide)
     {
-        {'G', 'C'},
-        {'C', 'G'},
-        {'T', 'A'},
-        {'A', 'U'}
-    };
-    
-    char to_rna(char nucleotide)
-    {
-        if (rnaToDnaMap.find(nucleotide) == rnaToDnaMap.end())
+        switch (dna_nucleotide)
         {
-            throw "Invalid nucledotide";
+            case 'A': return 'U';
+            case 'C': return 'G';
+            case 'G': return 'C';
+            case 'T': return 'A';
+
+            default: throw "Invalid dna nucledotide.";
         }
-        
-        return rnaToDnaMap[nucleotide];
     }
     
     std::string to_rna(std::string dna)
