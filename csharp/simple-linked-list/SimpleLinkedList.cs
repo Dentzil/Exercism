@@ -5,15 +5,13 @@ using System.Linq;
 
 public class SimpleLinkedList<T> : IEnumerable<T>
 {
-    public SimpleLinkedList(T value, SimpleLinkedList<T> next = null)
-    {
-        Value = value;
-        Next = next;
-    }
+    public T Value { get; private set; }
+
+    public SimpleLinkedList<T> Next { get; private set; }
 
     public SimpleLinkedList(IEnumerable<T> values)
     {
-        if (!values.Any())
+        if (values is null || !values.Any())
         {
             throw new Exception("An empty simple linked list cannot be initialized.");
         }
@@ -21,6 +19,7 @@ public class SimpleLinkedList<T> : IEnumerable<T>
         Value = values.First();
 
         var current = this;
+
         foreach (var item in values.Skip(1))
         {
             current.Next = new SimpleLinkedList<T>(item);
@@ -28,13 +27,16 @@ public class SimpleLinkedList<T> : IEnumerable<T>
         }
     }
 
-    public T Value { get; private set; }
-
-    public SimpleLinkedList<T> Next { get; private set; }
+    public SimpleLinkedList(T value, SimpleLinkedList<T> next = null)
+    {
+        Value = value;
+        Next = next;
+    }
 
     public SimpleLinkedList<T> Add(T value)
     {
         var current = this;
+
         while (current.Next != null)
         {
             current = current.Next;
