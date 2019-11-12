@@ -1,20 +1,22 @@
-export const colorValueMap = {
-  'black': 0, 'brown': 1, 'red': 2, 'orange': 3, 'yellow': 4, 'green': 5, 'blue': 6, 'violet': 7, 'grey': 8, 'white': 9
+const colorValueMap = {
+  'black': 0, 'brown': 1, 'red': 2, 'orange': 3, 'yellow': 4,
+  'green': 5, 'blue': 6, 'violet': 7, 'grey': 8, 'white': 9
 };
 
-
-export const value = (colors) => {
-  let numbers = [];
-
-  for ( let i = 0; i < 2; i++) {
-    if (colorValueMap[colors[i]] === undefined) {
-      throw new Error(`Unknown color: ${colors[i]}`);
-    }
-
-    numbers.push(colorValueMap[colors[i]]);
+function value(colors) {
+  if (colors.length < 2) {
+    throw new Error("Count of colors less than 2.");
   }
 
-  let result = +numbers.join('');
-
-  return result;
+  return convertColorToValue(colors[0]) * 10 + convertColorToValue(colors[1]);
 };
+
+function convertColorToValue(color) {
+  if (colorValueMap[color] === undefined) {
+    throw new Error(`Unknown color: ${color}.`);
+  }
+
+  return colorValueMap[color];
+}
+
+export { colorValueMap, value, convertColorToValue };
