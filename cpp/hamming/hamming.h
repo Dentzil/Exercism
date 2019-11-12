@@ -6,7 +6,7 @@
 
 namespace hamming
 {
-    size_t compute(std::string dna1, std::string dn2);
+    size_t compute(std::string dna1, std::string dna2);
 }
 
 #endif
