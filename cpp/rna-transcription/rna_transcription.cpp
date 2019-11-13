@@ -11,7 +11,7 @@ namespace rna_transcription
             case 'G': return 'C';
             case 'T': return 'A';
 
-            default: throw "Invalid dna nucledotide.";
+            default: throw "Invalid dna nucleotide.";
         }
     }
     
