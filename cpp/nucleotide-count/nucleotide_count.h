@@ -4,20 +4,22 @@
 #include <map>
 #include <stdexcept>
 #include <string>
+#include <unordered_map>
 
-namespace dna
+namespace nucleotide_count
 {
     class counter
     {
     private:
-        std::map<char, int> _nucleotide_counts;
+        std::unordered_map<char, int> _nucleotide_count_map;
         
-        void check_nucleotide(char) const;
+        void count_nucleotides(std::string dna);
+        void validate_nucleotide(char nucleotide) const;
         
     public:
         counter(std::string dna);
         
-        int count(char) const;
+        int count(char nucleotide) const;
         std::map<char, int> nucleotide_counts() const;
     };
 }
