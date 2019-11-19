@@ -6,8 +6,8 @@ namespace grade_school
     {
         if (has_grade(grade))
         {
-            _roster.at(grade).push_back(name);
-            std::sort(_roster.at(grade).begin(), _roster.at(grade).end());
+            std::vector<std::string>& students = _roster.at(grade);
+            students.insert(std::upper_bound(students.begin(), students.end(), name), name);
         }
         else
         {
@@ -15,9 +15,9 @@ namespace grade_school
         }
     }
 
-    std::vector<std::string> school::grade(int grade) const
+    const std::vector<std::string>& school::grade(int grade) const
     {
-        return has_grade(grade) ? _roster.at(grade) : std::vector<std::string>();
+        return has_grade(grade) ? _roster.at(grade) : blank_grade;
     }
 
     bool school::has_grade(int grade) const
@@ -25,7 +25,7 @@ namespace grade_school
         return _roster.find(grade) != _roster.end();
     }
 
-    std::map<int, std::vector<std::string>> school::roster() const
+    const std::map<int, std::vector<std::string>>& school::roster() const
     {
         return _roster;
     }
