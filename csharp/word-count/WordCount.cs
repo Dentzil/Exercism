@@ -9,25 +9,10 @@ public static class WordCount
 
     public static IDictionary<string, int> CountWords(string phrase)
     {
-        var wordsRepetition = new Dictionary<string, int>();
-
-        _regex.Replace(phrase, " ")
+        return _regex.Replace(phrase, " ")
             .Split(' ', StringSplitOptions.RemoveEmptyEntries)
-            .ToList()
-            .ForEach(e => 
-            {
-                var word = e.ToLower().Trim('\'');
-
-                if (wordsRepetition.ContainsKey(word))
-                {
-                    wordsRepetition[word]++;
-                }
-                else
-                {
-                    wordsRepetition.Add(word, 1);
-                }
-            });
-        
-        return wordsRepetition;
+            .Select(e => e.ToLower().Trim('\''))
+            .GroupBy(e => e)
+            .ToDictionary(k => k.Key, v => v.Count());
     }
 }

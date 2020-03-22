@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using Xunit;
 
-public class WordCountTest
+public class WordCountTests
 {
     [Fact]
     public void Count_one_word()
